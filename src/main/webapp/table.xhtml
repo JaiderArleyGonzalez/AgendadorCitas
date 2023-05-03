@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <meta charset="UTF-8"/>
+    <title>Table</title>
+</h:head>
+<body>
+    <center>
+        <h:form id="guess_form">
+            <p:panelGrid columns="1">
+            <p:dataTable value="#{usersBean.users}" var="users" varStatus="status">
+                    <p:column headerText="Usuarios">
+                        <h:outputText value="#{users}" />
+                    </p:column>
+            </p:dataTable>
+            </p:panelGrid>
+        </h:form>
+        
+        </center>   
+</body>
+</html>
