@@ -1,46 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <meta charset="UTF-8"/>
         <title>Register Page</title>
-        <!-- <link rel="stylesheet" href="css/styleL9.css"/> -->
-
+        <link rel="stylesheet" href="css/style.css"/>
     </h:head>
     <h:body>
-        <div id="contenedor-grilla">
+        <div id="contenedor">
             <div id="titulo">
-
+                Agenda una cita
             </div>
             <div id="preguntas">
-                <div id="nombre">
-
+                <div class="dos-columnas">
+                    <div class="input-label">
+                        <p:outputLabel for="nombre" styleClass="block">Nombres</p:outputLabel>
+                        <p:inputText id="nombre"/>
+                    </div>
+                    <div class="input-label">
+                        <p:outputLabel for="apellido" styleClass="block">Apellidos</p:outputLabel>
+                        <p:inputText id="apellido"/>
+                    </div>
                 </div>
-                <div id="numero-teléfono">
-
+                <div class="input-label">
+                    <p:outputLabel for="numero-teléfono" styleClass="block">Número de celular</p:outputLabel>
+                    <p:inputMask id="numero-teléfono" value="" mask="(+99) 999-999-9999" validateMask="true" />
                 </div>
-                <div id="correo">
-
+                <div class="input-label">
+                    <p:outputLabel for="correo" styleClass="block">Correo electrónico</p:outputLabel>
+                    <p:inputText id="correo"/>
                 </div>
-                <div id="asilo-visa">
-
+                <div class="input-label">
+                    <p:outputLabel for="asilo-visa" styleClass="block">¿Su consulta es para un caso de Asilo o visa de turista?</p:outputLabel>
+                    <p:selectBooleanButton id="asilo-visa" onLabel="Yes" offLabel="No"
+                                           onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" value=""/>
                 </div>
-                <div id="negocio">
-
+                <div class="input-label">
+                    <p:outputLabel for="negocio" styleClass="block">¿Usted quiere establecer un negocio en EEUU?</p:outputLabel>
+                    <p:selectBooleanButton id="negocio" onLabel="Yes" offLabel="No"
+                                           onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" value=""/>
                 </div>
-                <div id="calendario">
-
+                <div class="input-label">
+                    <p:outputLabel for="descripcion" styleClass="block">Diga una breve descripción de su consulta</p:outputLabel>
+                    <p:inputTextarea id="descripcion" rows="6" cols="33"/>
                 </div>
-                <div id="terminos-condiciones">
-
+                <div class="dos-columnas">
+                    <div class="input-label">
+                        <p:outputLabel  styleClass="block">Calendario</p:outputLabel>
+                        <p:calendar id="datetime" value="" pattern="dd/MM/yyyy" locale="es_ES" mindate="today"/>
+                    </div>
+                    <div class="input-label">
+                        <p:outputLabel styleClass="block">Hora</p:outputLabel>
+                        <p:calendar id="time" value="" pattern="HH:mm" timeOnly="true"/>
+                    </div>
                 </div>
+                <div class="input-terminos">
+                    <p:selectBooleanCheckbox value=""/>
+                    <a id="condiciones" class="ui-outputlabel ui-widget block" href="" target="_blank">Acepto los términos y condiciones</a>
+                </div>
+
             </div>
             <div id="enviar">
-
+                <p:commandButton value="Agendar cita"/>
             </div>
         </div>
-
+        <script src="js/calendarioPF.js"/>
     </h:body>
 </html>
