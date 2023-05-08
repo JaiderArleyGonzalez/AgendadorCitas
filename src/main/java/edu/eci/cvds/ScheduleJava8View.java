@@ -42,7 +42,7 @@ public class ScheduleJava8View implements Serializable {
 
     private ScheduleModel lazyEventModel;
 
-    private ScheduleEvent<?> event = new DefaultScheduleEvent<>();
+    private ScheduleEvent<?> event = new Evento();
 
     private boolean slotEventOverlap = true;
     private boolean showWeekNumbers = false;
@@ -84,6 +84,9 @@ public class ScheduleJava8View implements Serializable {
 
     private Map<String, ExtenderExample> extenderExamples;
 
+    public ScheduleJava8View(){
+        
+    }
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
@@ -247,12 +250,6 @@ public class ScheduleJava8View implements Serializable {
     }
 
     public void addEvent() {
-        if (event.isAllDay()) {
-            // see https://github.com/primefaces/primefaces/issues/1164
-            if (event.getStartDate().toLocalDate().equals(event.getEndDate().toLocalDate())) {
-                event.setEndDate(event.getEndDate().plusDays(1));
-            }
-        }
 
         if (event.getId() == null) {
             eventModel.addEvent(event);
@@ -261,7 +258,7 @@ public class ScheduleJava8View implements Serializable {
             eventModel.updateEvent(event);
         }
 
-        event = new DefaultScheduleEvent<>();
+        event = new Evento();
     }
 
     public void onEventSelect(SelectEvent<ScheduleEvent<?>> selectEvent) {
