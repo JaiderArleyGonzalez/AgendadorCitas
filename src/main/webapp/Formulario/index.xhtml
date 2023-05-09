@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta charset="UTF-8"/>
+        <title>Register Page</title>
+        <link rel="stylesheet" href="css/style.css"/>
+    </h:head>
+    <h:body>
+        <div id="logo">
+            <img src="../../img/Fondo-transparenteHALS.png" alt="logo HALS"/>
+        </div>
+        <div id="contenedor">
+            <div id="titulo">
+                Agenda una cita
+            </div>
+            <div id="preguntas">
+                <div class="dos-columnas">
+                    <div class="input-label">
+                        <p:outputLabel for="nombre" styleClass="block">Nombres</p:outputLabel>
+                        <p:inputText id="nombre"/>
+                    </div>
+                    <div class="input-label">
+                        <p:outputLabel for="apellido" styleClass="block">Apellidos</p:outputLabel>
+                        <p:inputText id="apellido"/>
+                    </div>
+                </div>
+                <div class="input-label">
+                    <p:outputLabel for="numero-teléfono" styleClass="block">Número de celular</p:outputLabel>
+                    <p:inputMask id="numero-teléfono" value="" mask="(+99) 999-999-9999" validateMask="true" />
+                </div>
+                <div class="input-label">
+                    <p:outputLabel for="correo" styleClass="block">Correo electrónico</p:outputLabel>
+                    <p:inputText id="correo"/>
+                </div>
+                <div class="input-label">
+                    <p:outputLabel value="¿Su consulta es para un caso de Asilo o visa de turista?" styleClass="font-bold"/>
+                    <p:selectOneMenu id="opcion1" value="">
+                        <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                        <f:selectItem itemLabel="Si" itemValue="Option1"/>
+                        <f:selectItem itemLabel="No" itemValue="Option2"/>
+                    </p:selectOneMenu>
+                </div>
+
+                <div class="input-label">
+                    <p:outputLabel value="¿Usted quiere establecer un negocio en EEUU?" styleClass="font-bold"/>
+                    <p:selectOneMenu id="opcion2" value="">
+                        <f:selectItem itemLabel="Seleccione una" itemValue=""/>
+                        <f:selectItem itemLabel="Si" itemValue="Option1"/>
+                        <f:selectItem itemLabel="No" itemValue="Option2"/>
+                    </p:selectOneMenu>
+                </div>
+                <div class="input-label">
+                    <p:outputLabel for="descripcion" styleClass="block">Diga una breve descripción de su consulta</p:outputLabel>
+                    <p:inputTextarea id="descripcion" rows="6" cols="33"/>
+                </div>
+                <div class="dos-columnas">
+                    <div class="input-label">
+                        <p:outputLabel  styleClass="block">Calendario</p:outputLabel>
+                        <p:calendar id="datetime" value="" pattern="dd/MM/yyyy" locale="es_ES" mindate="today"/>
+                    </div>
+                    <div class="input-label">
+                        <p:outputLabel styleClass="block">Hora</p:outputLabel>
+                        <p:calendar id="time" value="" pattern="HH:mm" timeOnly="true"/>
+                    </div>
+                </div>
+
+                <div class="input-terminos">
+                    <p:selectBooleanCheckbox value=""/>
+                    <a id="condiciones" class="ui-outputlabel ui-widget block" href="" target="_blank">Acepto los términos y condiciones</a>
+                </div>
+            </div>
+            <div id="enviar">
+                <p:commandButton value="Agendar cita"/>
+            </div>
+        </div>
+        <script src="js/calendarioPF.js"/>
+    </h:body>
+</html>
