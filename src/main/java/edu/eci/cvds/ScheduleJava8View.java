@@ -92,7 +92,6 @@ public class ScheduleJava8View implements Serializable {
         addEvents2EventModel(LocalDateTime.now().minusMonths(6));
 
         lazyEventModel = new LazyScheduleModel() {
-
             @Override
             public void loadEvents(LocalDateTime start, LocalDateTime end) {
                 for (int i = 1; i <= 5; i++) {
@@ -105,7 +104,6 @@ public class ScheduleJava8View implements Serializable {
                 }
             }
         };
-
         extenderExamples = extenderService.createExtenderExamples();
     }
 

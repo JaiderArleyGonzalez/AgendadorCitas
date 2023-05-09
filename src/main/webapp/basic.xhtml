@@ -6,44 +6,80 @@
 <h:head>
     <meta charset="UTF-8"/>
     <title>Calendario</title>
+    <link rel="stylesheet" href="style.css"/>
 </h:head>
-<div class="card">
-    <h:form>
-        <p:growl id="messages" showDetail="true"/>
+<body>
+    <div class="card">
+        <h:form>
+            <p:growl id="messages" showDetail="true"/>
 
-        <p:schedule id="schedule" value="#{scheduleJava8View.eventModel}" widgetVar="myschedule"
-                    timeZone="#{scheduleJava8View.serverTimeZone}" clientTimeZone="#{scheduleJava8View.serverTimeZone}">
-            <p:ajax event="dateSelect" listener="#{scheduleJava8View.onDateSelect}" update="eventDetails"
-                    oncomplete="PF('eventDialog').show();"/>
-            <p:ajax event="eventSelect" listener="#{scheduleJava8View.onEventSelect}" update="eventDetails"
-                    oncomplete="PF('eventDialog').show();"/>
-            <p:ajax event="eventMove" listener="#{scheduleJava8View.onEventMove}" update="messages"/>
-            <p:ajax event="eventResize" listener="#{scheduleJava8View.onEventResize}" update="messages"/>
-        </p:schedule>
+            <p:schedule id="schedule" value="#{scheduleJava8View.eventModel}" widgetVar="myschedule"
+                        timeZone="#{scheduleJava8View.serverTimeZone}" clientTimeZone="#{scheduleJava8View.serverTimeZone}">
+                <p:ajax event="eventSelect" listener="#{scheduleJava8View.onEventSelect}" oncomplete="PF('eventDialog').show();"/>
+            </p:schedule>
 
-        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="fade" hideEffect="fade">
-            <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
-                <p:outputLabel for="title" value="Titles" styleClass="font-bold"/>
-                <p:inputText id="title" value="#{scheduleJava8View.event.title}" required="true"/>
+            <p:dialog widgetVar="eventDialog" header="Detalles Cita" showEffect="fade" hideEffect="fade">
+                <div class="detalles"> 
+                    <div class="input-label">
+                        <p:outputLabel value="Nombre" styleClass="font-bold"/>
+                        <p:inputText class="desabilitar" disabled="true"/>
+                    </div>
 
-                <p:outputLabel for="from" value="From" styleClass="font-bold"/>
-                <p:datePicker id="from" value="#{scheduleJava8View.event.startDate}" pattern="dd/MM/yyyy"
-                              showTime="true" appendTo="@(body)"/>
+                    <div class="input-label">
+                        <p:outputLabel value="Apellido" styleClass="font-bold"/>
+                        <p:inputText class="desabilitar" disabled="true"/>
+                    </div>
 
-                <p:outputLabel for="to" value="To" styleClass="font-bold"/>
-                <p:datePicker id="to" value="#{scheduleJava8View.event.endDate}" pattern="dd/MM/yyyy"
-                              showTime="true" appendTo="@(body)"/>
+                    <div class="input-label">
+                        <p:outputLabel value="Número de telefono" styleClass="font-bold"/>
+                        <p:inputText class="desabilitar" disabled="true"/>
+                    </div>
 
-                <p:outputLabel for="allDay" value="All Day" styleClass="font-bold"/>
-                <h:selectBooleanCheckbox id="allDay" value="#{scheduleJava8View.event.allDay}"/>
-            </h:panelGrid>
+                    <div class="input-label">
+                        <p:outputLabel value="Correo electronico" styleClass="font-bold"/>
+                        <p:inputText class="desabilitar" disabled="true"/>
+                    </div>
 
-            <div class="flex justify-content-between mt-3">
-                <p:commandButton type="reset" value="Reset" styleClass="font-bold ui-button-outlined"/>
-                <p:commandButton id="addButton" value="Save" action="#{scheduleJava8View.addEvent}"
-                            oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>
-            </div>
-        </p:dialog>
-    </h:form>
-</div>
-</html>
+                    <div class="input-label">
+                        <p:outputLabel value="¿Su consulta es para un caso de Asilo o visa de turista?" styleClass="font-bold"/>
+                        <p:inputText class="desabilitar" disabled="true"/>
+                    </div>
+
+                    <div class="input-label">
+                        <p:outputLabel value="¿Requiere negocio en EEUU?" styleClass="font-bold"/>
+                        <p:inputText class="desabilitar" disabled="true"/>
+                    </div>
+
+                    <div class="input-label">
+                        <p:outputLabel value="Descripción usuario" styleClass="font-bold" />
+                        <p:inputTextarea  class="desabilitar" disabled="true"/>
+                    </div>
+
+                    <div class="input-label">
+                        <p:outputLabel value="Descripción cita" styleClass="font-bold"/>
+                        <p:inputTextarea class="desabilitar"/>
+                    </div>
+
+                    <div class="input-label">
+                        <p:outputLabel value="Estado cita" styleClass="font-bold" />
+                        <p:selectOneMenu class="desabilitar" id="estado" value="#{selectOneMenuView.selectedOption}">
+                            <f:selectItem itemLabel="Programada" itemValue="Option1"/>
+                            <f:selectItem itemLabel="En proceso" itemValue="Option2"/>
+                            <f:selectItem itemLabel="Atendida" itemValue="Option1"/>
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="input-label">
+                        <p:outputLabel value="Fecha" styleClass="font-bold"/>
+                        <p:datePicker  class="desabilitar" disabled="true" pattern="dd/MM/yyyy" showTime="true" appendTo="@(body)" />
+                    </div>  
+                </div>
+                <div class="botones">
+                    <p:commandButton  id="guardar" value="Guardar" styleClass="ui-button-raised ui-button-success" />
+                    <p:commandButton  id="cancelar" value="Cancelar" styleClass="ui-button-raised ui-button-danger" />
+                </div>
+            </p:dialog>
+        </h:form>
+    </div>
+</body>
+</html> 
