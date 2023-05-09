@@ -70,9 +70,18 @@
                     </div>
                 </div>
 
+                <script>
+                    // Obtener el valor del parámetro de la URL
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const terminosSeleccionados = urlParams.get('terminosSeleccionados');
+                
+                    // Establecer el valor del selectBooleanCheckbox
+                    document.getElementById("terminosSeleccionados").setAttribute("checked", terminosSeleccionados === "true");
+                </script>
+                
                 <div class="input-terminos">
                     <p:selectBooleanCheckbox value=""/>
-                    <a id="condiciones" class="ui-outputlabel ui-widget block" href="" target="_blank">Acepto los términos y condiciones</a>
+                    <a id="condiciones" class="ui-outputlabel ui-widget block" href="/Formulario/terminos.xhtml" target="_blank">Acepto los términos y condiciones</a>
                 </div>
             </div>
             <div id="enviar">
