@@ -3,8 +3,8 @@ import org.primefaces.model.DefaultScheduleEvent;
 
 
 public class Evento extends DefaultScheduleEvent{
-    private boolean casoAsiloTurista;
-    private boolean negocioEUU;
+    private String casoAsiloTurista;
+    private String negocioEUU;
     private String nombre;
     private String apellido;
     private int numeroTelefono;
@@ -12,16 +12,17 @@ public class Evento extends DefaultScheduleEvent{
     private String descripcionUsuario;
     private String estadoCita;
     
-    public void setCasoAsiloTurista(boolean respuesta){
+    
+    public void setCasoAsiloTurista(String respuesta){
         casoAsiloTurista = respuesta;
     }
-    public void setNegocioEUU(boolean respuesta){
+    public void setNegocioEUU(String respuesta){
         negocioEUU = respuesta;
     }
-    public boolean getNegocioEUU(){
+    public String getNegocioEUU(){
         return negocioEUU;
     }
-    public boolean getCasoAsiloTurista(){
+    public String getCasoAsiloTurista(){
         return casoAsiloTurista;
     }
 

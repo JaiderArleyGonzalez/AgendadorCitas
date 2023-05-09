@@ -76,7 +76,7 @@
                     </div>  
                 </div>
                 <div class="botones">
-                    <p:commandButton  id="guardar" value="Guardar" styleClass="ui-button-raised ui-button-success" />
+                    <p:commandButton id="addButton" value="Guardar" action="#{scheduleJava8View.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>
                     <p:commandButton  id="cancelar" value="Cancelar" styleClass="ui-button-raised ui-button-danger" />
                 </div>
             </p:dialog>
