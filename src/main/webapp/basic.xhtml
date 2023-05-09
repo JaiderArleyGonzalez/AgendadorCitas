@@ -22,47 +22,47 @@
                 <div class="detalles"> 
                     <div class="input-label">
                         <p:outputLabel value="Nombre" styleClass="font-bold"/>
-                        <p:inputText class="desabilitar" disabled="true"/>
+                        <p:inputText value="#{scheduleJava8View.event.nombre}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Apellido" styleClass="font-bold"/>
-                        <p:inputText class="desabilitar" disabled="true"/>
+                        <p:inputText value="#{scheduleJava8View.event.apellido}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Número de telefono" styleClass="font-bold"/>
-                        <p:inputText class="desabilitar" disabled="true"/>
+                        <p:inputText value="#{scheduleJava8View.event.numeroTelefono}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Correo electronico" styleClass="font-bold"/>
-                        <p:inputText class="desabilitar" disabled="true"/>
+                        <p:inputText value="#{scheduleJava8View.event.correoElectronico}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="¿Su consulta es para un caso de Asilo o visa de turista?" styleClass="font-bold"/>
-                        <p:inputText class="desabilitar" disabled="true"/>
+                        <p:inputText value="#{scheduleJava8View.event.casoAsiloTurista}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="¿Requiere negocio en EEUU?" styleClass="font-bold"/>
-                        <p:inputText class="desabilitar" disabled="true"/>
+                        <p:inputText value="#{scheduleJava8View.event.negocioEUU}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Descripción usuario" styleClass="font-bold" />
-                        <p:inputTextarea  class="desabilitar" disabled="true"/>
+                        <p:inputTextarea value="#{scheduleJava8View.event.descripcionUsuario}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Descripción cita" styleClass="font-bold"/>
-                        <p:inputTextarea class="desabilitar"/>
+                        <p:inputTextarea value="#{scheduleJava8View.event.description}" required="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Estado cita" styleClass="font-bold" />
-                        <p:selectOneMenu class="desabilitar" id="estado" value="#{selectOneMenuView.selectedOption}">
+                        <p:selectOneMenu value="#{ScheduleJava8View.event.estadoCita}" required="true">
                             <f:selectItem itemLabel="Programada" itemValue="Option1"/>
                             <f:selectItem itemLabel="En proceso" itemValue="Option2"/>
                             <f:selectItem itemLabel="Atendida" itemValue="Option1"/>
@@ -71,7 +71,8 @@
 
                     <div class="input-label">
                         <p:outputLabel value="Fecha" styleClass="font-bold"/>
-                        <p:datePicker  class="desabilitar" disabled="true" pattern="dd/MM/yyyy" showTime="true" appendTo="@(body)" />
+                        <p:datePicker value="#{scheduleJava8View.event.startDate}" pattern="dd/MM/yyyy"
+                            showTime="true" appendTo="@(body)"/>
                     </div>  
                 </div>
                 <div class="botones">
