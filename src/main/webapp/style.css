@@ -1,0 +1,40 @@
+.input-label{
+    display: grid!important;
+    grid-template-columns: 100%!important;
+    justify-content: center!important ;
+    padding: 0.5em;
+    
+}
+.input-label>label{
+    padding-bottom: 0.4em;
+}
+.detalles {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 0.4em;
+    width: 22cm;
+}
+
+.botones {
+    display: grid;
+    grid-template-columns: 15% 15% 15%;
+    padding: 0.5em;
+    width: 22cm;
+}
+
+.botones_off {
+    display: none!important;
+}
+
+.botones_on {
+    display: block;
+}
+
+.bollean {
+    resize: none;
+    height: 3em;
+}
+
+.botones>button {
+    margin: 0.4em;
+}
