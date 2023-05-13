@@ -1,4 +1,4 @@
-package edu.eci.cvds;
+package edu.eci.cvds.servicios;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -29,7 +29,7 @@ import org.primefaces.model.ScheduleDisplayMode;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
-import edu.eci.cvds.ExtenderService.ExtenderExample;
+import edu.eci.cvds.servicios.ExtenderService.ExtenderExample;
 
 @Named
 @ViewScoped
