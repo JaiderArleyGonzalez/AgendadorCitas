@@ -1,12 +1,14 @@
-package edu.eci.cvds.servicios;
+package edu.eci.cvds.controladores;
 import org.primefaces.model.DefaultScheduleEvent;
+import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
 @Data
+@Component
 public class Evento extends DefaultScheduleEvent{
     private String casoAsiloTurista;
-    private String negocioEUU;
+    private String negocioEEUU;
     private String nombre;
     private String apellido;
     private int numeroTelefono;
