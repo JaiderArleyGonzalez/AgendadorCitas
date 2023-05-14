@@ -1,29 +1,42 @@
 package edu.eci.cvds.controladores;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-
+import java.time.*;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.schedule.*;
 import org.primefaces.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
+import org.springframework.stereotype.*;
+
+import edu.eci.cvds.modelo.Cita;
+import edu.eci.cvds.repositorios.CitaRepositorio;
+import edu.eci.cvds.servicios.CitaServicio;
 import lombok.Data;
 
 
 @Data
 @Component
-public class ScheduleJava8View implements Serializable {
+
+public class Schedule implements Serializable {
 
     private ScheduleModel eventModel;
     private ScheduleModel lazyEventModel;
+    
     @Autowired
-    private ScheduleEvent<?> event;
+    private final CitaRepositorio citaRepositorio;
+
+    @Autowired
+    //@Qualifier("Evento")
+    private Evento event;
+    
+    @Autowired
+    private CitaServicio citaServicio;
+
     private boolean slotEventOverlap = true;
     private boolean showWeekNumbers = false;
     private boolean showHeader = true;
@@ -34,9 +47,7 @@ public class ScheduleJava8View implements Serializable {
     private boolean tooltip = true;
     private boolean allDaySlot = true;
     private boolean rtl = false;
-
     private double aspectRatio = Double.MIN_VALUE;
-
     private String leftHeaderTemplate = "prev,next today";
     private String centerHeaderTemplate = "title";
     private String rightHeaderTemplate = "dayGridMonth,timeGridWeek,timeGridDay,listYear";
@@ -62,26 +73,12 @@ public class ScheduleJava8View implements Serializable {
     private String selectedExtenderExample = "";
 
     
-
-    public ScheduleJava8View(){
-        
+    public Schedule(CitaRepositorio citaRepositorio){    
+        this.citaRepositorio = citaRepositorio;
     }
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
-        lazyEventModel = new LazyScheduleModel() {
-            @Override
-            public void loadEvents(LocalDateTime start, LocalDateTime end) {
-                for (int i = 1; i <= 5; i++) {
-                    LocalDateTime random = getRandomDateTime(start);
-                    addEvent(DefaultScheduleEvent.builder()
-                            .title("Lazy Event " + i)
-                            .startDate(random)
-                            .endDate(random.plusHours(3))
-                            .build());
-                }
-            }
-        };
         
     }
 
@@ -98,15 +95,44 @@ public class ScheduleJava8View implements Serializable {
 
         if (event.getId() == null) {
             eventModel.addEvent(event);
+            citaServicio.addCita(new Cita(  event.getId(),
+                                            "descripcion",
+                                            event.getCasoAsiloTurista(),
+                                            event.getNegocioEEUU(),
+                                            event.getNombre(),
+                                            event.getApellido(),
+                                            event.getNumeroTelefono(),
+                                            event.getCorreoElectronico(),
+                                            event.getDescripcionUsuario(),
+                                            "Programada",
+                                            event.getStartDate(), 
+                                            event.getEndDate()                            
+                                        ));
         }
         else {
             eventModel.updateEvent(event);
+            citaServicio.updateCita(new Cita(  event.getId(),
+                                                "descripcion",
+                                                event.getCasoAsiloTurista(),
+                                                event.getNegocioEEUU(),
+                                                event.getNombre(),
+                                                event.getApellido(),
+                                                event.getNumeroTelefono(),
+                                                event.getCorreoElectronico(),
+                                                event.getDescripcionUsuario(),
+                                                "Programada",
+                                                event.getStartDate(), 
+                                                event.getEndDate()                            
+                                        ));
         }
+        citaServicio.getAllCita().forEach(System.out::println);
         event = new Evento();
+        
     }
 
-    public void onEventSelect(SelectEvent<ScheduleEvent<?>> selectEvent) {
+    public void onEventSelect(SelectEvent<Evento> selectEvent) {
         event = selectEvent.getObject();
+        
     }
 
     public void onViewChange(SelectEvent<String> selectEvent) {
@@ -116,10 +142,10 @@ public class ScheduleJava8View implements Serializable {
     }
 
     public void onDateSelect(SelectEvent<LocalDateTime> selectEvent) {
-        event = DefaultScheduleEvent.builder()
-                .startDate(selectEvent.getObject())
-                .endDate(selectEvent.getObject().plusHours(1))
-                .build();
+        Evento evento = new Evento();
+        evento.setStartDate(selectEvent.getObject());
+        evento.setEndDate(selectEvent.getObject().plusHours(1));
+        event = evento;
     }
 
     public void onEventMove(ScheduleEntryMoveEvent event) {
@@ -158,8 +184,6 @@ public class ScheduleJava8View implements Serializable {
     public double getAspectRatio() {
         return aspectRatio == 0 ? Double.MIN_VALUE : aspectRatio;
     }
-
     
-
     
 }

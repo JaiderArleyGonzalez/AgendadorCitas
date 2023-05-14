@@ -21,74 +21,62 @@
                 <div class="dos-columnas">
                     <div class="input-label">
                         <p:outputLabel for="nombre" styleClass="block">Nombres</p:outputLabel>
-                        <p:inputText id="nombre" value="#{scheduleJava8View.event.nombre}"/>
+                        <p:inputText id="nombre" value="#{schedule.event.nombre}"/>
                     </div>
                     <div class="input-label">
                         <p:outputLabel for="apellido" styleClass="block">Apellidos</p:outputLabel>
-                        <p:inputText id="apellido" value="#{scheduleJava8View.event.apellido}" />
+                        <p:inputText id="apellido" value="#{schedule.event.apellido}" />
                     </div>
                 </div>
                 <div class="input-label">
                     <p:outputLabel for="numero-teléfono" styleClass="block">Número de celular</p:outputLabel>
-                    <p:inputMask id="numero-teléfono" value="#{scheduleJava8View.event.numeroTelefono}" mask="(+99) 999-999-9999" validateMask="true" />
+                    <p:inputText id="numero-teléfono" value="#{schedule.event.numeroTelefono}"/>
                 </div>
                 <div class="input-label">
                     <p:outputLabel for="correo" styleClass="block">Correo electrónico</p:outputLabel>
-                    <p:inputText id="correo" value="#{scheduleJava8View.event.correoElectronico}"/>
+                    <p:inputText id="correo" value="#{schedule.event.correoElectronico}"/>
                 </div>
                 <div class="input-label">
                     <p:outputLabel value="¿Su consulta es para un caso de Asilo o visa de turista?" styleClass="font-bold"/>
-                    <p:selectOneMenu id="opcion1" value="#{scheduleJava8View.event.casoAsiloTurista}">
+                    <p:selectOneMenu id="opcion1" value="#{schedule.event.casoAsiloTurista}">
                         <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                        <f:selectItem itemLabel="Si" itemValue="Option1"/>
-                        <f:selectItem itemLabel="No" itemValue="Option2"/>
+                        <f:selectItem itemLabel="Si" itemValue="Sí"/>
+                        <f:selectItem itemLabel="No" itemValue="No"/>
                     </p:selectOneMenu>
                 </div>
 
                 <div class="input-label">
                     <p:outputLabel value="¿Usted quiere establecer un negocio en EEUU?" styleClass="font-bold"/>
-                    <p:selectOneMenu id="opcion2" value="#{scheduleJava8View.event.negocioEUU}">
+                    <p:selectOneMenu id="opcion2" value="#{schedule.event.negocioEEUU}">
                         <f:selectItem itemLabel="Seleccione una" itemValue=""/>
-                        <f:selectItem itemLabel="Si" itemValue="Option1"/>
-                        <f:selectItem itemLabel="No" itemValue="Option2"/>
+                        <f:selectItem itemLabel="Si" itemValue="Sí"/>
+                        <f:selectItem itemLabel="No" itemValue="No"/>
                     </p:selectOneMenu>
                 </div>
                 <div class="input-label">
                     <p:outputLabel for="descripcion" styleClass="block">Diga una breve descripción de su consulta</p:outputLabel>
-                    <p:inputTextarea id="descripcion" rows="6" cols="33" value="#{scheduleJava8View.event.descripcionUsuario}"/>
+                    <p:inputTextarea id="descripcion" rows="6" cols="33" value="#{schedule.event.descripcionUsuario}"/>
                 </div>
                 <div class="dos-columnas">
                     <div class="input-label">
                         <p:outputLabel for="from" value="Desde" styleClass="font-bold"/>
-                        <p:datePicker id="from" value="#{scheduleJava8View.event.startDate}" pattern="dd/MM/yyyy"
+                        <p:datePicker id="from" value="#{schedule.event.startDate}" pattern="dd/MM/yyyy"
                               showTime="true" appendTo="@(body)"/>
                     </div>
                     <div class="input-label">
                         <p:outputLabel for="to" value="To" styleClass="font-bold"/>
-                        <p:datePicker id="to" value="#{scheduleJava8View.event.endDate}" pattern="dd/MM/yyyy"
+                        <p:datePicker id="to" value="#{schedule.event.endDate}" pattern="dd/MM/yyyy"
                                 showTime="true" appendTo="@(body)"/>
                     </div>
                 </div>
 
-                <script>
-                    // Obtener el valor del parámetro de la URL
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const terminosSeleccionados = urlParams.get('terminosSeleccionados');
                 
-                    // Establecer el valor del selectBooleanCheckbox
-                    document.getElementById("terminosSeleccionados").setAttribute("checked", terminosSeleccionados === "true");
-                </script>
-                
-                <div class="input-terminos">
-                    <p:selectBooleanCheckbox value=""/>
-                    <a id="condiciones" class="ui-outputlabel ui-widget block" href="terminos.xhtml" target="_blank">Acepto los términos y condiciones</a>
-                </div>
             </div>
             <div id="enviar">
-                <p:commandButton value="Agendar cita" action="#{scheduleJava8View.addEvent}"/>
+                <p:commandButton value="Agendar cita" action="#{schedule.addEvent}"/>
             </div>
             </h:form>
         </div>
-        <script src="js/calendarioPF.js"/>
+        
     </h:body>
 </html>

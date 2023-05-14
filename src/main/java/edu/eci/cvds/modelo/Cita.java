@@ -1,9 +1,11 @@
 package edu.eci.cvds.modelo;
 import javax.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.*;
 @Entity
-@Table(name = "Cita")
+@Table(name = "CITA")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,13 +23,17 @@ public class Cita {
     @Column(name = "APELLIDO")
     private String apellido;
     @Column(name = "NUMEROTELEFONO")
-    private int numeroTelefono;
+    private String numeroTelefono;
     @Column(name = "CORREOELECTRONICO")
     private String correoElectronico;
     @Column(name = "DESCRIPCIONUSUARIO")
     private String descripcionUsuario;
     @Column(name = "ESTADOCITA")
     private String estadoCita;
+    @Column(name="STARTDATE")
+    private LocalDateTime startDate;
+    @Column(name="ENDDATE")
+    private LocalDateTime endDate;
 
     @Override
     public boolean equals(Object o) {
