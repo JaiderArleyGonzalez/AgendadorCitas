@@ -4,13 +4,15 @@ import java.io.Serializable;
 import java.time.*;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.schedule.*;
 import org.primefaces.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 
+import java.util.*;
 import org.springframework.stereotype.*;
 
 import edu.eci.cvds.modelo.Cita;
@@ -23,7 +25,7 @@ import lombok.Data;
 @Component
 
 public class Schedule implements Serializable {
-
+    
     private ScheduleModel eventModel;
     private ScheduleModel lazyEventModel;
     
@@ -31,7 +33,6 @@ public class Schedule implements Serializable {
     private final CitaRepositorio citaRepositorio;
 
     @Autowired
-    //@Qualifier("Evento")
     private Evento event;
     
     @Autowired
@@ -81,21 +82,39 @@ public class Schedule implements Serializable {
         eventModel = new DefaultScheduleModel();
         
     }
-
-    public LocalDateTime getRandomDateTime(LocalDateTime base) {
-        LocalDateTime dateTime = base.withMinute(0).withSecond(0).withNano(0);
-        return dateTime.plusDays(((int) (Math.random() * 30)));
+    @Bean
+    private CommandLineRunner addEventsFromDataBase(CitaServicio citaServicio) throws Exception{
+        
+        return args -> {
+        List<Cita> citas = citaServicio.getAllCita();
+        System.out.println(citas.toString());
+        for(int i = 0; i < citas.size(); i++){
+            event.setTitle(citas.get(i).getNombre() +" "+citas.get(i).getApellido());
+            event.setStartDate((citas.get(i).getId()));
+            event.setEndDate(citas.get(i).getEndDate());
+            event.setCasoAsiloTurista(citas.get(i).getCasoAsiloTurista());
+            event.setDescripcionUsuario(citas.get(i).getDescripcionUsuario());
+            event.setDescription(citas.get(i).getDescripcion()); 
+            event.setNegocioEEUU(citas.get(i).getNegocioEEUU());
+            event.setNombre(citas.get(i).getNombre());
+            event.setApellido(citas.get(i).getApellido());
+            event.setNumeroTelefono(citas.get(i).getNumeroTelefono());
+            event.setEstadoCita(citas.get(i).getEstadoCita());
+            eventModel.addEvent(event);
+            event = new Evento();
+            
+        }
+        
+        };
     }
 
-    public LocalDate getInitialDate() {
-        return LocalDate.now().plusDays(1);
-    }
-
+    
     public void addEvent() {
 
-        if (event.getId() == null) {
+        if (!citaRepositorio.existsById( event.getStartDate() )) {
+            event.setTitle(event.getNombre()+" "+event.getApellido());
             eventModel.addEvent(event);
-            citaServicio.addCita(new Cita(  event.getId(),
+            citaServicio.addCita(new Cita(  event.getStartDate(), 
                                             "descripcion",
                                             event.getCasoAsiloTurista(),
                                             event.getNegocioEEUU(),
@@ -105,13 +124,14 @@ public class Schedule implements Serializable {
                                             event.getCorreoElectronico(),
                                             event.getDescripcionUsuario(),
                                             "Programada",
-                                            event.getStartDate(), 
+                                            
                                             event.getEndDate()                            
                                         ));
+
         }
         else {
             eventModel.updateEvent(event);
-            citaServicio.updateCita(new Cita(  event.getId(),
+            citaServicio.updateCita(new Cita(  event.getStartDate(), 
                                                 "descripcion",
                                                 event.getCasoAsiloTurista(),
                                                 event.getNegocioEEUU(),
@@ -121,17 +141,18 @@ public class Schedule implements Serializable {
                                                 event.getCorreoElectronico(),
                                                 event.getDescripcionUsuario(),
                                                 "Programada",
-                                                event.getStartDate(), 
+                                                
                                                 event.getEndDate()                            
                                         ));
         }
-        citaServicio.getAllCita().forEach(System.out::println);
+        
         event = new Evento();
         
     }
 
     public void onEventSelect(SelectEvent<Evento> selectEvent) {
         event = selectEvent.getObject();
+        System.out.println(event.toString());
         
     }
 

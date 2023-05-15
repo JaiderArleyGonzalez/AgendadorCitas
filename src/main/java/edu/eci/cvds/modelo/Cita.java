@@ -11,7 +11,8 @@ import java.util.*;
 @AllArgsConstructor
 public class Cita {
     @Id
-    private String id;
+    @Column(name="STARTDATE")
+    private LocalDateTime id;
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @Column(name = "CASOASILOTURISTA")
@@ -30,8 +31,7 @@ public class Cita {
     private String descripcionUsuario;
     @Column(name = "ESTADOCITA")
     private String estadoCita;
-    @Column(name="STARTDATE")
-    private LocalDateTime startDate;
+    
     @Column(name="ENDDATE")
     private LocalDateTime endDate;
 

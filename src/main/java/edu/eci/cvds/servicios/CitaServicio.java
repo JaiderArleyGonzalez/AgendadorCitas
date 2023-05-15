@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import edu.eci.cvds.modelo.Cita;
 import edu.eci.cvds.repositorios.CitaRepositorio;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @Service
 public class CitaServicio {
@@ -15,7 +16,7 @@ public class CitaServicio {
     public Cita addCita(Cita citaB){
         return citaRepositorio.save(citaB);
     }
-    public Cita getCita (String citaId){
+    public Cita getCita (LocalDateTime citaId){
         return citaRepositorio.findById(citaId);
     }
     public List<Cita> getAllCita(){
@@ -27,7 +28,7 @@ public class CitaServicio {
         }
         return null;
     }
-    public void deleteCita(String citaId){
+    public void deleteCita(LocalDateTime citaId){
         citaRepositorio.deleteById(citaId);
     }
 }

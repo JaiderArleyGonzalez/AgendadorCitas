@@ -15,10 +15,10 @@
 
             <p:schedule id="schedule" value="#{schedule.eventModel}" widgetVar="myschedule"
                         timeZone="#{schedule.serverTimeZone}" clientTimeZone="#{schedule.serverTimeZone}">
-                <p:ajax event="eventSelect" listener="#{schedule.onEventSelect}" oncomplete="PF('eventDialog').show();"/>
+                <p:ajax event="eventSelect" listener="#{schedule.onEventSelect}" oncomplete="PF('eventDialog').show();" update="eventDialog"/>
             </p:schedule>
 
-            <p:dialog widgetVar="eventDialog" header="Detalles Cita" showEffect="fade" hideEffect="fade">
+            <p:dialog id="eventDialog" widgetVar="eventDialog" header="Detalles Cita" showEffect="fade" hideEffect="fade">
                 <div class="detalles"> 
                     <div class="input-label">
                         <p:outputLabel value="Nombre" styleClass="font-bold"/>
@@ -76,12 +76,12 @@
                     </div>  
                 </div>
                 <div class="botones">
-                    <p:commandButton id="addButton" value="Guardar" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>
+                    <p:commandButton id="addButton" value="Guardar" action="#{schedule.addEvent}"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>
                     <p:commandButton  id="cancelar" value="Cancelar" styleClass="ui-button-raised ui-button-danger" />
                 </div>
             </p:dialog>
         </h:form>
     </div>
-	<script src="formulariojs/calendarioPF.js"/>
+	
 </body>
 </html> 
