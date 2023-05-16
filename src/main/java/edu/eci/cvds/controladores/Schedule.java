@@ -38,6 +38,9 @@ public class Schedule implements Serializable {
     @Autowired
     private CitaServicio citaServicio;
 
+    @Autowired
+    private Correo correo;
+
     private boolean slotEventOverlap = true;
     private boolean showWeekNumbers = false;
     private boolean showHeader = true;
@@ -127,7 +130,20 @@ public class Schedule implements Serializable {
                                             
                                             event.getEndDate()                            
                                         ));
-
+            
+            correo.addSubject(false, 
+                                event.getNombre(), 
+                                event.getApellido(), 
+                                event.getStartDate());
+            correo.addContent(false, 
+                                event.getNombre(), 
+                                event.getApellido(),  
+                                event.getStartDate(), 
+                                event.getDescripcionUsuario(),
+                                event.getCasoAsiloTurista(),
+                                event.getNegocioEEUU());
+            correo.createEmail();
+            correo.sendEmail();
         }
         else {
             eventModel.updateEvent(event);
@@ -144,6 +160,19 @@ public class Schedule implements Serializable {
                                                 
                                                 event.getEndDate()                            
                                         ));
+            correo.addSubject(true, 
+                                event.getNombre(), 
+                                event.getApellido(), 
+                                event.getStartDate());
+            correo.addContent(true, 
+                                event.getNombre(), 
+                                event.getApellido(),  
+                                event.getStartDate(), 
+                                event.getDescripcionUsuario(),
+                                event.getCasoAsiloTurista(),
+                                event.getNegocioEEUU());
+            correo.createEmail();
+            correo.sendEmail();
         }
         
         event = new Evento();
