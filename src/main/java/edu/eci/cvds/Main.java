@@ -2,6 +2,7 @@ package edu.eci.cvds;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.faces.webapp.FacesServlet;
@@ -9,7 +10,7 @@ import javax.servlet.ServletContext;
 import java.util.Arrays;
 
 @SpringBootApplication
-public class Main{
+public class Main extends SpringBootServletInitializer {
     @Autowired
   public static void main (String[] args) {
       SpringApplication.run(Main.class, args);
