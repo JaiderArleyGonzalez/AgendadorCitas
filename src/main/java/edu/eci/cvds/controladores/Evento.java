@@ -14,6 +14,7 @@ public class Evento extends DefaultScheduleEvent{
     private String correoElectronico;
     private String descripcionUsuario;
     private String estadoCita;
+	private Boolean checkBox;
     
     public void setColor(){
         if (estadoCita.equals("Programada")){
