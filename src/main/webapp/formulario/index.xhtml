@@ -10,7 +10,7 @@
     </h:head>
     <h:body>
         <div id="logo">
-            <img src="../../img/Fondo-transparenteHALS.png" alt="logo HALS"/>
+            <img src="Fondo-transparenteHALS.png" alt="logo HALS"/>
         </div>
         <div id="contenedor">
             <h:form>
@@ -69,8 +69,10 @@
                                 showTime="true" appendTo="@(body)"/>
                     </div>
                 </div>
-
-                
+                <div class="input-terminos">
+                    <p:selectBooleanCheckbox value=""/>
+                    <a id="condiciones" class="ui-outputlabel ui-widget block" href="terminos.xhtml" target="_blank">Acepto los términos y condiciones</a>
+                </div>
             </div>
             <div id="enviar">
                 <p:commandButton value="Agendar cita" action="#{schedule.addEvent}" />
