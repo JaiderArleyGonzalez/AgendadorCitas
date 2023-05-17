@@ -38,9 +38,6 @@ public class Schedule implements Serializable {
     @Autowired
     private CitaServicio citaServicio;
 
-    @Autowired
-    private Correo correo;
-
     private boolean slotEventOverlap = true;
     private boolean showWeekNumbers = false;
     private boolean showHeader = true;
@@ -90,7 +87,7 @@ public class Schedule implements Serializable {
         
         return args -> {
         List<Cita> citas = citaServicio.getAllCita();
-        event = new Evento();
+        System.out.println(citas.toString());
         for(int i = 0; i < citas.size(); i++){
             event.setTitle(citas.get(i).getNombre() +" "+citas.get(i).getApellido());
             event.setStartDate((citas.get(i).getId()));
@@ -102,12 +99,13 @@ public class Schedule implements Serializable {
             event.setNombre(citas.get(i).getNombre());
             event.setApellido(citas.get(i).getApellido());
             event.setNumeroTelefono(citas.get(i).getNumeroTelefono());
-			event.setCorreoElectronico(citas.get(i).getCorreoElectronico());
+            event.setCorreoElectronico(citas.get(i).getCorreoElectronico());
             event.setEstadoCita(citas.get(i).getEstadoCita());
-            event.setColor();
             eventModel.addEvent(event);
             event = new Evento();
+            
         }
+        
         };
     }
 
@@ -127,13 +125,10 @@ public class Schedule implements Serializable {
                                             event.getCorreoElectronico(),
                                             event.getDescripcionUsuario(),
                                             "Programada",
+                                            
                                             event.getEndDate()                            
                                         ));
-            event.setEstadoCita("Programada");
-            event.setColor();
-            sendEmailToHals(false);
-            sendEmailToUser(false, event.getCorreoElectronico());
-            
+
         }
         else {
             eventModel.updateEvent(event);
@@ -146,56 +141,19 @@ public class Schedule implements Serializable {
                                                 event.getNumeroTelefono(),
                                                 event.getCorreoElectronico(),
                                                 event.getDescripcionUsuario(),
-                                                event.getEstadoCita(),
+                                                "Programada",
+                                                
                                                 event.getEndDate()                            
                                         ));
-            event.setEstadoCita(event.getEstadoCita());    
-            event.setColor();
-            sendEmailToHals(true);
-            sendEmailToUser(true, event.getCorreoElectronico());
         }
         
         event = new Evento();
         
     }
-    public void sendEmailToHals(boolean modified){
-        correo.addSubject(modified,
-                        true, 
-                        event.getNombre(), 
-                        event.getApellido(), 
-                        event.getStartDate());
-        correo.addContent(modified,
-                        true, 
-                        event.getNombre(), 
-                        event.getApellido(),  
-                        event.getStartDate(), 
-                        event.getDescripcionUsuario(),
-                        event.getCasoAsiloTurista(),
-                        event.getNegocioEEUU());
-        correo.createEmail();
-        correo.sendEmail();
-    }
-    public void sendEmailToUser(boolean modified, String email){
-        correo.addSubject(modified,
-                            false, 
-                            event.getNombre(), 
-                            event.getApellido(), 
-                            event.getStartDate());
-        correo.addContent(modified,
-                        false, 
-                        event.getNombre(), 
-                        event.getApellido(),  
-                        event.getStartDate(), 
-                        event.getDescripcionUsuario(),
-                        event.getCasoAsiloTurista(),
-                        event.getNegocioEEUU());
-        correo.createEmail(email);
-        correo.sendEmail();
-    }
 
     public void onEventSelect(SelectEvent<Evento> selectEvent) {
         event = selectEvent.getObject();
-        
+        System.out.println(event.toString());
         
     }
 
