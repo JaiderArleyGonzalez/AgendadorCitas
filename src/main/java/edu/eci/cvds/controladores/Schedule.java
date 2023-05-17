@@ -99,6 +99,7 @@ public class Schedule implements Serializable {
             event.setNombre(citas.get(i).getNombre());
             event.setApellido(citas.get(i).getApellido());
             event.setNumeroTelefono(citas.get(i).getNumeroTelefono());
+            event.setCorreoElectronico(citas.get(i).getCorreoElectronico());
             event.setEstadoCita(citas.get(i).getEstadoCita());
             eventModel.addEvent(event);
             event = new Evento();
