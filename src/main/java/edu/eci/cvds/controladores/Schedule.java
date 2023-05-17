@@ -90,7 +90,7 @@ public class Schedule implements Serializable {
         
         return args -> {
         List<Cita> citas = citaServicio.getAllCita();
-        System.out.println(citas.toString());
+        event = new Evento();
         for(int i = 0; i < citas.size(); i++){
             event.setTitle(citas.get(i).getNombre() +" "+citas.get(i).getApellido());
             event.setStartDate((citas.get(i).getId()));
@@ -103,11 +103,10 @@ public class Schedule implements Serializable {
             event.setApellido(citas.get(i).getApellido());
             event.setNumeroTelefono(citas.get(i).getNumeroTelefono());
             event.setEstadoCita(citas.get(i).getEstadoCita());
+            event.setColor();
             eventModel.addEvent(event);
             event = new Evento();
-            
         }
-        
         };
     }
 
@@ -127,9 +126,10 @@ public class Schedule implements Serializable {
                                             event.getCorreoElectronico(),
                                             event.getDescripcionUsuario(),
                                             "Programada",
-                                            
                                             event.getEndDate()                            
                                         ));
+            event.setEstadoCita("Programada");
+            event.setColor();
             sendEmailToHals(false);
             sendEmailToUser(false, event.getCorreoElectronico());
             
@@ -145,9 +145,11 @@ public class Schedule implements Serializable {
                                                 event.getNumeroTelefono(),
                                                 event.getCorreoElectronico(),
                                                 event.getDescripcionUsuario(),
-                                                "Programada",
+                                                event.getEstadoCita(),
                                                 event.getEndDate()                            
                                         ));
+            event.setEstadoCita(event.getEstadoCita());    
+            event.setColor();
             sendEmailToHals(true);
             sendEmailToUser(true, event.getCorreoElectronico());
         }
@@ -192,7 +194,7 @@ public class Schedule implements Serializable {
 
     public void onEventSelect(SelectEvent<Evento> selectEvent) {
         event = selectEvent.getObject();
-        System.out.println(event.toString());
+        
         
     }
 

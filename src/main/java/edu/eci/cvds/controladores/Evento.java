@@ -15,4 +15,17 @@ public class Evento extends DefaultScheduleEvent{
     private String descripcionUsuario;
     private String estadoCita;
     
+    public void setColor(){
+        if (estadoCita.equals("Programada")){
+            setBackgroundColor("#339CFF");
+            setBorderColor("#339CFF");
+        } if(estadoCita.equals("En proceso")){
+            setBackgroundColor("#FFF933");
+            setBorderColor("#FFF933");
+        } if(estadoCita.equals("Atendida")){
+            setBackgroundColor("#39FF33");
+            setBorderColor("#39FF33");
+        }
+    }
+    
 }
