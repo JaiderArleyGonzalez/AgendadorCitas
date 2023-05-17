@@ -130,20 +130,9 @@ public class Schedule implements Serializable {
                                             
                                             event.getEndDate()                            
                                         ));
+            sendEmailToHals(false);
+            sendEmailToUser(false, event.getCorreoElectronico());
             
-            correo.addSubject(false, 
-                                event.getNombre(), 
-                                event.getApellido(), 
-                                event.getStartDate());
-            correo.addContent(false, 
-                                event.getNombre(), 
-                                event.getApellido(),  
-                                event.getStartDate(), 
-                                event.getDescripcionUsuario(),
-                                event.getCasoAsiloTurista(),
-                                event.getNegocioEEUU());
-            correo.createEmail();
-            correo.sendEmail();
         }
         else {
             eventModel.updateEvent(event);
@@ -157,26 +146,48 @@ public class Schedule implements Serializable {
                                                 event.getCorreoElectronico(),
                                                 event.getDescripcionUsuario(),
                                                 "Programada",
-                                                
                                                 event.getEndDate()                            
                                         ));
-            correo.addSubject(true, 
-                                event.getNombre(), 
-                                event.getApellido(), 
-                                event.getStartDate());
-            correo.addContent(true, 
-                                event.getNombre(), 
-                                event.getApellido(),  
-                                event.getStartDate(), 
-                                event.getDescripcionUsuario(),
-                                event.getCasoAsiloTurista(),
-                                event.getNegocioEEUU());
-            correo.createEmail();
-            correo.sendEmail();
+            sendEmailToHals(true);
+            sendEmailToUser(true, event.getCorreoElectronico());
         }
         
         event = new Evento();
         
+    }
+    public void sendEmailToHals(boolean modified){
+        correo.addSubject(modified,
+                        true, 
+                        event.getNombre(), 
+                        event.getApellido(), 
+                        event.getStartDate());
+        correo.addContent(modified,
+                        true, 
+                        event.getNombre(), 
+                        event.getApellido(),  
+                        event.getStartDate(), 
+                        event.getDescripcionUsuario(),
+                        event.getCasoAsiloTurista(),
+                        event.getNegocioEEUU());
+        correo.createEmail();
+        correo.sendEmail();
+    }
+    public void sendEmailToUser(boolean modified, String email){
+        correo.addSubject(modified,
+                            false, 
+                            event.getNombre(), 
+                            event.getApellido(), 
+                            event.getStartDate());
+        correo.addContent(modified,
+                        false, 
+                        event.getNombre(), 
+                        event.getApellido(),  
+                        event.getStartDate(), 
+                        event.getDescripcionUsuario(),
+                        event.getCasoAsiloTurista(),
+                        event.getNegocioEEUU());
+        correo.createEmail(email);
+        correo.sendEmail();
     }
 
     public void onEventSelect(SelectEvent<Evento> selectEvent) {
