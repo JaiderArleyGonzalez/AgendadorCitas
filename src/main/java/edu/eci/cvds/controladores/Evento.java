@@ -17,5 +17,6 @@ public class Evento extends DefaultScheduleEvent{
     private String correoElectronico;
     private String descripcionUsuario;
     private String estadoCita;
+    private Boolean checkBox;
     
 }
