@@ -135,7 +135,7 @@ public class Schedule implements Serializable {
             event.setColor();
             
             //sendEmailToHals(false);
-            //sendEmailToUser(false, event.getCorreoElectronico());
+            sendEmailToUser(false, event.getCorreoElectronico());
             
         }
         else {
@@ -175,7 +175,8 @@ public class Schedule implements Serializable {
                         event.getStartDate(), 
                         event.getDescripcionUsuario(),
                         event.getCasoAsiloTurista(),
-                        event.getNegocioEEUU());
+                        event.getNegocioEEUU(),
+                        event.getFirma());
         correo.createEmail();
         correo.sendEmail();
     }
@@ -192,7 +193,8 @@ public class Schedule implements Serializable {
                         event.getStartDate(), 
                         event.getDescripcionUsuario(),
                         event.getCasoAsiloTurista(),
-                        event.getNegocioEEUU());
+                        event.getNegocioEEUU(),
+                        event.getFirma());
         correo.createEmail(email);
         correo.sendEmail();
     }

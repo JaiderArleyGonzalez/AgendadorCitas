@@ -1,14 +1,25 @@
 package edu.eci.cvds.controladores;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 @Component
@@ -20,6 +31,9 @@ public class Correo {
     private String content;
     @Autowired
     private Properties mProperties;
+    @Autowired
+    private Imagen imagen;
+    private byte[] imagenBytes;
     private Session mSession;
     private MimeMessage mCorreo;
     public Correo(){
@@ -41,7 +55,13 @@ public class Correo {
         }
    
     }
-    public void addContent(boolean modified, boolean toHals, String nombre, String apellido, LocalDateTime startDate, String descripcion,String casoAsilo, String negocioEEUU){
+    public void addContent(boolean modified, boolean toHals, String nombre, String apellido, LocalDateTime startDate, String descripcion,String casoAsilo, String negocioEEUU, String firma){
+        try {
+            imagenBytes = imagen.generateSignature(firma);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         if(toHals){
             if(modified){
                 content = "Buen día, señorita Liliana. <br>"
@@ -57,6 +77,7 @@ public class Correo {
                         + "¿Es caso de asilo? "+ casoAsilo+"<br>"
                         + "¿Es negocio en EEUU? "+ negocioEEUU+"<br>"
                         + "Descripción del usuario: "+ descripcion;
+                        
             }
         }else{
             if(modified){
@@ -93,11 +114,34 @@ public class Correo {
         mProperties.setProperty("mail.smtp.auth", "true");
         mSession = Session.getDefaultInstance(mProperties);
         try{
+            //crear el cuerpo del correo
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText(content, "ISO-8859-1", "html");
+            //adjuntar firma
+            MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+            String attachmentPath = "firma.png";
+            try {
+                FileOutputStream fileOutputStream = new FileOutputStream(attachmentPath);
+                fileOutputStream.write(imagenBytes);
+                fileOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            DataSource source = new FileDataSource(attachmentPath);
+            attachmentBodyPart.setDataHandler(new DataHandler(source));
+            attachmentBodyPart.setFileName(attachmentPath);
+            //juntar partes
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+            multipart.addBodyPart(attachmentBodyPart);
+            //crear el correo electrónico
             mCorreo = new MimeMessage(mSession);
             mCorreo.setFrom(new InternetAddress(emailFrom));
             mCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
             mCorreo.setSubject(subject);
-            mCorreo.setText(content, "ISO-8859-1", "html");
+            mCorreo.setContent(multipart);
+
+            
         }catch(AddressException e){
             e.printStackTrace();
         } catch (MessagingException e) {
