@@ -73,7 +73,16 @@
                         <p:outputLabel value="Fecha" styleClass="font-bold"/>
                         <p:datePicker value="#{schedule.event.startDate}" pattern="dd/MM/yyyy"
                             showTime="true" appendTo="@(body)"/>
-                    </div>  
+                    </div>
+                    <div>
+                        <p:outputPanel id="output">
+                            <h:outputText rendered="#{not empty schedule.event.firma}" style="font-size:1.5rem" styleClass="block mb-2"
+                                        value="Firma del usuario" />
+                            <p:signature style="width:400px;height:200px;" value="#{schedule.event.firma}" readonly="true"
+                                        rendered="#{not empty schedule.event.firma}" backgroundColor="#eaeaea" color="#03a9f4"/>
+                        </p:outputPanel>
+                    </div>
+
                 </div>
                 <div class="botones">
                     <p:commandButton id="addButton" value="Guardar" action="#{schedule.addEvent}"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>

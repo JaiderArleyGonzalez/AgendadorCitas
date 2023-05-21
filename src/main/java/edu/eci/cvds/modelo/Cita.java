@@ -34,6 +34,9 @@ public class Cita {
     
     @Column(name="ENDDATE")
     private LocalDateTime endDate;
+    @Lob
+    @Column(name="FIRMA")
+    private String firma;
 
     @Override
     public boolean equals(Object o) {

@@ -73,6 +73,22 @@
                     <p:selectBooleanCheckbox value="#{schedule.event.checkBox}"/>
                     <a id="condiciones" class="ui-outputlabel ui-widget block" href="terminos.xhtml" target="_blank">Acepto los términos y condiciones</a>
                 </div>
+                <div class="card">
+                    <h:form>
+                        <p:growl>
+                            <p:autoUpdate/>
+                        </p:growl>
+                
+                        <p:signature style="width:400px;height:200px" widgetVar="sig" value="#{schedule.event.firma}"
+                                     required="true" guideline="true"/>
+                
+                        <div style="margin:20px 0">
+                            <p:commandButton value="Clear" icon="pi pi-times" type="button" onclick="PF('sig').clear()" styleClass="ui-button-flat ml-2"/>
+                        </div>
+                
+                        
+                    </h:form>
+                </div>
             </div>
             <div id="enviar">
                 <p:commandButton value="Agendar cita" action="#{schedule.addEvent}" />

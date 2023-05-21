@@ -104,6 +104,7 @@ public class Schedule implements Serializable {
             event.setNumeroTelefono(citas.get(i).getNumeroTelefono());
 			event.setCorreoElectronico(citas.get(i).getCorreoElectronico());
             event.setEstadoCita(citas.get(i).getEstadoCita());
+            event.setFirma(citas.get(i).getFirma());
             event.setColor();
             eventModel.addEvent(event);
             event = new Evento();
@@ -127,12 +128,14 @@ public class Schedule implements Serializable {
                                             event.getCorreoElectronico(),
                                             event.getDescripcionUsuario(),
                                             "Programada",
-                                            event.getEndDate()                            
+                                            event.getEndDate(),
+                                            event.getFirma()                            
                                         ));
             event.setEstadoCita("Programada");
             event.setColor();
-            sendEmailToHals(false);
-            sendEmailToUser(false, event.getCorreoElectronico());
+            
+            //sendEmailToHals(false);
+            //sendEmailToUser(false, event.getCorreoElectronico());
             
         }
         else {
@@ -147,12 +150,13 @@ public class Schedule implements Serializable {
                                                 event.getCorreoElectronico(),
                                                 event.getDescripcionUsuario(),
                                                 event.getEstadoCita(),
-                                                event.getEndDate()                            
+                                                event.getEndDate(),
+                                                event.getFirma()                               
                                         ));
             event.setEstadoCita(event.getEstadoCita());    
             event.setColor();
-            sendEmailToHals(true);
-            sendEmailToUser(true, event.getCorreoElectronico());
+            //sendEmailToHals(true);
+            //sendEmailToUser(true, event.getCorreoElectronico());
         }
         
         event = new Evento();
