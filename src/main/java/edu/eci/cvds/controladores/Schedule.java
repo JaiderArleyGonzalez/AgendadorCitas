@@ -104,6 +104,8 @@ public class Schedule implements Serializable {
             event.setNumeroTelefono(citas.get(i).getNumeroTelefono());
 			event.setCorreoElectronico(citas.get(i).getCorreoElectronico());
             event.setEstadoCita(citas.get(i).getEstadoCita());
+            event.setFirma(citas.get(i).getFirma());
+            event.setCheckBox(citas.get(i).isCheckBox());
             event.setColor();
             eventModel.addEvent(event);
             event = new Evento();
@@ -127,11 +129,14 @@ public class Schedule implements Serializable {
                                             event.getCorreoElectronico(),
                                             event.getDescripcionUsuario(),
                                             "Programada",
-                                            event.getEndDate()                            
+                                            oneHourLater(event.getStartDate()),
+                                            event.getFirma(),
+                                            event.getCheckBox()                            
                                         ));
             event.setEstadoCita("Programada");
             event.setColor();
-            sendEmailToHals(false);
+            
+            //sendEmailToHals(false);
             sendEmailToUser(false, event.getCorreoElectronico());
             
         }
@@ -147,12 +152,14 @@ public class Schedule implements Serializable {
                                                 event.getCorreoElectronico(),
                                                 event.getDescripcionUsuario(),
                                                 event.getEstadoCita(),
-                                                event.getEndDate()                            
+                                                oneHourLater(event.getStartDate()),
+                                                event.getFirma(),
+                                                event.getCheckBox()                                 
                                         ));
             event.setEstadoCita(event.getEstadoCita());    
             event.setColor();
-            sendEmailToHals(true);
-            sendEmailToUser(true, event.getCorreoElectronico());
+            //sendEmailToHals(true);
+            //sendEmailToUser(true, event.getCorreoElectronico());
         }
         
         event = new Evento();
@@ -171,7 +178,8 @@ public class Schedule implements Serializable {
                         event.getStartDate(), 
                         event.getDescripcionUsuario(),
                         event.getCasoAsiloTurista(),
-                        event.getNegocioEEUU());
+                        event.getNegocioEEUU(),
+                        event.getFirma());
         correo.createEmail();
         correo.sendEmail();
     }
@@ -188,7 +196,8 @@ public class Schedule implements Serializable {
                         event.getStartDate(), 
                         event.getDescripcionUsuario(),
                         event.getCasoAsiloTurista(),
-                        event.getNegocioEEUU());
+                        event.getNegocioEEUU(),
+                        event.getFirma());
         correo.createEmail(email);
         correo.sendEmail();
     }
@@ -240,7 +249,9 @@ public class Schedule implements Serializable {
             eventModel.deleteEvent(event);
         }
     }
-
+    private LocalDateTime oneHourLater(LocalDateTime referenceDate) {
+        return referenceDate.plusDays(0).plusHours(1).withMinute(0).withSecond(0).withNano(0);
+    }
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
