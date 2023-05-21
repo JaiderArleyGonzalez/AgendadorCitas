@@ -105,6 +105,7 @@ public class Schedule implements Serializable {
 			event.setCorreoElectronico(citas.get(i).getCorreoElectronico());
             event.setEstadoCita(citas.get(i).getEstadoCita());
             event.setFirma(citas.get(i).getFirma());
+            event.setCheckBox(citas.get(i).isCheckBox());
             event.setColor();
             eventModel.addEvent(event);
             event = new Evento();
@@ -128,8 +129,9 @@ public class Schedule implements Serializable {
                                             event.getCorreoElectronico(),
                                             event.getDescripcionUsuario(),
                                             "Programada",
-                                            event.getEndDate(),
-                                            event.getFirma()                            
+                                            oneHourLater(event.getStartDate()),
+                                            event.getFirma(),
+                                            event.getCheckBox()                            
                                         ));
             event.setEstadoCita("Programada");
             event.setColor();
@@ -150,8 +152,9 @@ public class Schedule implements Serializable {
                                                 event.getCorreoElectronico(),
                                                 event.getDescripcionUsuario(),
                                                 event.getEstadoCita(),
-                                                event.getEndDate(),
-                                                event.getFirma()                               
+                                                oneHourLater(event.getStartDate()),
+                                                event.getFirma(),
+                                                event.getCheckBox()                                 
                                         ));
             event.setEstadoCita(event.getEstadoCita());    
             event.setColor();
@@ -246,7 +249,9 @@ public class Schedule implements Serializable {
             eventModel.deleteEvent(event);
         }
     }
-
+    private LocalDateTime oneHourLater(LocalDateTime referenceDate) {
+        return referenceDate.plusDays(0).plusHours(1).withMinute(0).withSecond(0).withNano(0);
+    }
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }

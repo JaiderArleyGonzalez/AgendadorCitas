@@ -57,37 +57,28 @@
                     <p:outputLabel for="descripcion" styleClass="block">Diga una breve descripción de su consulta</p:outputLabel>
                     <p:inputTextarea id="descripcion" rows="6" cols="33" value="#{schedule.event.descripcionUsuario}"/>
                 </div>
-                <div class="dos-columnas">
-                    <div class="input-label">
-                        <p:outputLabel for="from" value="Desde" styleClass="font-bold"/>
-                        <p:datePicker id="from" value="#{schedule.event.startDate}" pattern="dd/MM/yyyy"
-                              showTime="true" appendTo="@(body)"/>
-                    </div>
-                    <div class="input-label">
-                        <p:outputLabel for="to" value="To" styleClass="font-bold"/>
-                        <p:datePicker id="to" value="#{schedule.event.endDate}" pattern="dd/MM/yyyy"
-                                showTime="true" appendTo="@(body)"/>
-                    </div>
+                <div class="input-label">
+                    <p:outputLabel for="from" value="Fecha" styleClass="font-bold"/>
+                    <p:datePicker id="from" value="#{schedule.event.startDate}" pattern="dd/MM/yyyy"
+                          showTime="true" appendTo="@(body)"/>
                 </div>
-                <div class="input-terminos">
-                    <p:selectBooleanCheckbox value="#{schedule.event.checkBox}"/>
-                    <a id="condiciones" class="ui-outputlabel ui-widget block" href="terminos.xhtml" target="_blank">Acepto los términos y condiciones</a>
-                </div>
+                <p:outputLabel value="Firme aquí:" styleClass="font-bold"/>
                 <div class="card">
                     <h:form>
                         <p:growl>
                             <p:autoUpdate/>
                         </p:growl>
-                
                         <p:signature style="width:400px;height:200px" widgetVar="sig" value="#{schedule.event.firma}"
                                      required="true" guideline="true"/>
                 
                         <div style="margin:20px 0">
                             <p:commandButton value="Clear" icon="pi pi-times" type="button" onclick="PF('sig').clear()" styleClass="ui-button-flat ml-2"/>
                         </div>
-                
-                        
                     </h:form>
+                </div>
+                <div class="input-terminos">
+                    <p:selectBooleanCheckbox value="#{schedule.event.checkBox}"/>
+                    <a id="condiciones" class="ui-outputlabel ui-widget block" href="terminos.xhtml" target="_blank">Acepto los términos y condiciones</a>
                 </div>
             </div>
             <div id="enviar">

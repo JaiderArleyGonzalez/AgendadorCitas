@@ -37,7 +37,8 @@ public class Cita {
     @Lob
     @Column(name="FIRMA")
     private String firma;
-
+    @Column(name="TerminosCondiciones")
+    private boolean checkBox;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
