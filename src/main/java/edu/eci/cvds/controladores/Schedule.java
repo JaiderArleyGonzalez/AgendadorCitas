@@ -11,9 +11,9 @@ import org.primefaces.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-
+import org.springframework.stereotype.Component;
+import javax.faces.bean.ViewScoped;
 import java.util.*;
-import org.springframework.stereotype.*;
 
 import edu.eci.cvds.modelo.Cita;
 import edu.eci.cvds.repositorios.CitaRepositorio;
@@ -23,7 +23,6 @@ import lombok.Data;
 
 @Data
 @Component
-
 public class Schedule implements Serializable {
     
     private ScheduleModel eventModel;
@@ -90,7 +89,7 @@ public class Schedule implements Serializable {
         
         return args -> {
         List<Cita> citas = citaServicio.getAllCita();
-        event = new Evento();
+        this.newEvent();
         for(int i = 0; i < citas.size(); i++){
             event.setTitle(citas.get(i).getNombre() +" "+citas.get(i).getApellido());
             event.setStartDate((citas.get(i).getId()));
@@ -108,11 +107,13 @@ public class Schedule implements Serializable {
             event.setCheckBox(citas.get(i).isCheckBox());
             event.setColor();
             eventModel.addEvent(event);
-            event = new Evento();
+            this.newEvent();
         }
         };
     }
-
+    public void newEvent() {
+        event = new Evento();
+    }
     
     public void addEvent() {
 
@@ -161,8 +162,8 @@ public class Schedule implements Serializable {
             //sendEmailToHals(true);
             //sendEmailToUser(true, event.getCorreoElectronico());
         }
-        
-        event = new Evento();
+
+        this.newEvent();
         
     }
     public void sendEmailToHals(boolean modified){

@@ -68,7 +68,7 @@
                         <p:growl>
                             <p:autoUpdate/>
                         </p:growl>
-                        <p:signature style="width:400px;height:200px" widgetVar="sig" value="#{schedule.event.firma}"
+                        <p:signature id="firma" style="width:400px;height:200px" widgetVar="sig" value="#{schedule.event.firma}"
                                      required="true" guideline="true"/>
                 
                         <div style="margin:20px 0">
@@ -77,12 +77,12 @@
                     </h:form>
                 </div>
                 <div class="input-terminos">
-                    <p:selectBooleanCheckbox value="#{schedule.event.checkBox}"/>
+                    <p:selectBooleanCheckbox id="check" value="#{schedule.event.checkBox}"/>
                     <a id="condiciones" class="ui-outputlabel ui-widget block" href="terminos.xhtml" target="_blank">Acepto los términos y condiciones</a>
                 </div>
             </div>
             <div id="enviar">
-                <p:commandButton value="Agendar cita" action="#{schedule.addEvent}" />
+                <p:commandButton value="Agendar cita" action="#{schedule.addEvent}" update="nombre, apellido, numero-teléfono, correo, opcion1, opcion2, descripcion, from, j_idt6:j_idt37:firma, check"/>
             </div>
             </h:form>
         </div>
