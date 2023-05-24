@@ -6,28 +6,29 @@
 <h:head>
     <meta charset="UTF-8"/>
     <title>Login</title>
+    <link rel="stylesheet" href="formulario/css/style.css"/>
+    <link rel="stylesheet" href="login.css"/>
 </h:head>
 <h:body>
-    <center>
-    <div class="login">
-        <div class="login-screen">
-            <div class="app-title">
-                <h1>Login</h1>
-            </div>
-
-            <h:form class="login-form">
-                <div class="control-group">
-                    <p:inputText class="login-field" value="#{usersBean.user}" placeholder="Nombre" id="login-name"/>
-                </div>
-
-                <div class="control-group">
-                    <p:password class="login-field" value="#{usersBean.password}" placeholder="Contraseña" id="login-pass"/>
-                </div>
-                <p:commandButton class="btn btn-primary btn-large btn-block" action="#{usersBean.login()}" value="ingresar" id="confirm" update="@all"/>
-                <h:messages style="color:red"/>
-            </h:form>
-        </div>
+    <div id="logo">
+        <img src="formulario/Fondo-transparenteHALS.png" alt="logo HALS"/>
     </div>
-    </center>
+    <div class="forma">
+        <div id="titulo" >
+            Login
+        </div>
+        <h:form>
+            <div class="input-label">
+                <p:inputText class="longitud" value="#{registro.user}" placeholder="Nombre" id="login-name"/>
+            </div>
+            <div class="input-label">
+                <p:password class="longitud" value="#{registro.password}" placeholder="Contraseña" id="login-pass"/>
+            </div>
+            <p:commandButton class="btn btn-primary btn-large btn-block longitud separar" action="#{registro.login()}" value="Ingresar" id="confirm" update="@all" style="width: 270px" oncomplete="PF('messagesDialog').show()"/>
+        </h:form>
+        <p:dialog id="messagesDialog" widgetVar="messagesDialog" header="Mensajes">
+            <h:messages style="color: blue" />
+        </p:dialog>
+    </div>
 </h:body>
 </html>
