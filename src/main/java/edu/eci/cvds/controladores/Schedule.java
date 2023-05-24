@@ -3,18 +3,12 @@ package edu.eci.cvds.controladores;
 import java.io.Serializable;
 import java.time.*;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.schedule.*;
 import org.primefaces.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import javax.faces.bean.ViewScoped;
 import java.util.*;
-
 import edu.eci.cvds.modelo.Cita;
 import edu.eci.cvds.repositorios.CitaRepositorio;
 import edu.eci.cvds.servicios.CitaServicio;
@@ -26,7 +20,6 @@ import lombok.Data;
 public class Schedule implements Serializable {
     
     private ScheduleModel eventModel;
-    private ScheduleModel lazyEventModel;
     
     @Autowired
     private final CitaRepositorio citaRepositorio;
@@ -129,7 +122,7 @@ public class Schedule implements Serializable {
                                             event.getNumeroTelefono(),
                                             event.getCorreoElectronico(),
                                             event.getDescripcionUsuario(),
-                                            "Programada",
+                                            "AGENDADA",
                                             oneHourLater(event.getStartDate()),
                                             event.getFirma(),
                                             event.getCheckBox()                            
@@ -137,7 +130,7 @@ public class Schedule implements Serializable {
             event.setEstadoCita("Programada");
             event.setColor();
             
-            //sendEmailToHals(false);
+            sendEmailToHals(false);
             sendEmailToUser(false, event.getCorreoElectronico());
             
         }
@@ -159,8 +152,8 @@ public class Schedule implements Serializable {
                                         ));
             event.setEstadoCita(event.getEstadoCita());    
             event.setColor();
-            //sendEmailToHals(true);
-            //sendEmailToUser(true, event.getCorreoElectronico());
+            sendEmailToHals(true);
+            sendEmailToUser(true, event.getCorreoElectronico());
         }
 
         this.newEvent();
@@ -202,60 +195,8 @@ public class Schedule implements Serializable {
         correo.createEmail(email);
         correo.sendEmail();
     }
-
-    
-
-    public void onViewChange(SelectEvent<String> selectEvent) {
-        view = selectEvent.getObject();
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "View Changed", "View:" + view);
-        addMessage(message);
-    }
-
-    public void onDateSelect(SelectEvent<LocalDateTime> selectEvent) {
-        Evento evento = new Evento();
-        evento.setStartDate(selectEvent.getObject());
-        evento.setEndDate(selectEvent.getObject().plusHours(1));
-        event = evento;
-    }
-
-    public void onEventMove(ScheduleEntryMoveEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved",
-                "Delta:" + event.getDeltaAsDuration());
-
-        addMessage(message);
-    }
-
-    public void onEventResize(ScheduleEntryResizeEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized",
-                "Start-Delta:" + event.getDeltaStartAsDuration() + ", End-Delta: " + event.getDeltaEndAsDuration());
-
-        addMessage(message);
-    }
-
-    public void onRangeSelect(ScheduleRangeEvent event) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Range selected",
-                "Start-Date:" + event.getStartDate() + ", End-Date: " + event.getEndDate());
-
-        addMessage(message);
-    }
-
-    public void onEventDelete() {
-        String eventId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("eventId");
-        if (event != null) {
-            ScheduleEvent<?> event = eventModel.getEvent(eventId);
-            eventModel.deleteEvent(event);
-        }
-    }
     private LocalDateTime oneHourLater(LocalDateTime referenceDate) {
         return referenceDate.plusDays(0).plusHours(1).withMinute(0).withSecond(0).withNano(0);
     }
-    private void addMessage(FacesMessage message) {
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-    public double getAspectRatio() {
-        return aspectRatio == 0 ? Double.MIN_VALUE : aspectRatio;
-    }
-    
     
 }

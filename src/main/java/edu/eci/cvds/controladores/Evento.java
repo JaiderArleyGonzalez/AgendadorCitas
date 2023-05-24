@@ -18,13 +18,13 @@ public class Evento extends DefaultScheduleEvent{
     private String firma;
     
     public void setColor(){
-        if (estadoCita.equals("Programada")){
+        if (estadoCita.equals("AGENDADA")){
             setBackgroundColor("#339CFF");
             setBorderColor("#339CFF");
-        } if(estadoCita.equals("En proceso")){
+        } if(estadoCita.equals("PAGADA")){
             setBackgroundColor("#FFF933");
             setBorderColor("#FFF933");
-        } if(estadoCita.equals("Atendida")){
+        } if(estadoCita.equals("ATENDIDA")){
             setBackgroundColor("#39FF33");
             setBorderColor("#39FF33");
         }

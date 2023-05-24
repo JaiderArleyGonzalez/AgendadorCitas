@@ -77,7 +77,7 @@
                     </h:form>
                 </div>
                 <div class="input-terminos">
-                    <p:selectBooleanCheckbox id="check" value="#{agenda.eventoUsuario.checkBox}"/>
+                    <p:selectBooleanCheckbox id="check" value="#{agenda.eventoUsuario.checkBox}" required="true" requiredMessage="Debes aceptar los términos y condiciones"/>
                     <a id="condiciones" class="ui-outputlabel ui-widget block" href="terminos.xhtml" target="_blank">Acepto los términos y condiciones</a>
                 </div>
             </div>
