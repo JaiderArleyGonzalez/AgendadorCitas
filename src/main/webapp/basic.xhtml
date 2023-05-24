@@ -57,7 +57,7 @@
 
                     <div class="input-label">
                         <p:outputLabel value="Descripción cita" styleClass="font-bold"/>
-                        <p:inputTextarea value="#{schedule.event.description}" required="true"/>
+                        <p:inputTextarea value="#{schedule.event.description}" required="false"/>
                     </div>
 
                     <div class="input-label">
@@ -85,8 +85,8 @@
 
                 </div>
                 <div class="botones">
-                    <p:commandButton id="addButton" value="Guardar" action="#{schedule.addEvent}"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>
-                    <p:commandButton  id="cancelar" value="Cancelar" styleClass="ui-button-raised ui-button-danger" />
+                    <p:commandButton id="addButton" value="Guardar" action="#{schedule.addEvent}"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();" update="schedule"/>
+                    <p:commandButton  id="cancelar" value="Cancelar" action="#{schedule.newEvent}" styleClass="ui-button-raised ui-button-danger" oncomplete="PF('eventDialog').hide();"/>
                 </div>
             </p:dialog>
         </h:form>
