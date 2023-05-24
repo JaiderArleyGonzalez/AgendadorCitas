@@ -203,11 +203,7 @@ public class Schedule implements Serializable {
         correo.sendEmail();
     }
 
-    public void onEventSelect(SelectEvent<Evento> selectEvent) {
-        event = selectEvent.getObject();
-        
-        
-    }
+    
 
     public void onViewChange(SelectEvent<String> selectEvent) {
         view = selectEvent.getObject();

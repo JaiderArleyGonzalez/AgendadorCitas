@@ -21,24 +21,24 @@
                 <div class="dos-columnas">
                     <div class="input-label">
                         <p:outputLabel for="nombre" styleClass="block">Nombres</p:outputLabel>
-                        <p:inputText id="nombre" value="#{schedule.event.nombre}"/>
+                        <p:inputText id="nombre" value="#{agenda.eventoUsuario.nombre}" />
                     </div>
                     <div class="input-label">
                         <p:outputLabel for="apellido" styleClass="block">Apellidos</p:outputLabel>
-                        <p:inputText id="apellido" value="#{schedule.event.apellido}" />
+                        <p:inputText id="apellido" value="#{agenda.eventoUsuario.apellido}" />
                     </div>
                 </div>
                 <div class="input-label">
                     <p:outputLabel for="numero-teléfono" styleClass="block">Número de celular</p:outputLabel>
-                    <p:inputText id="numero-teléfono" value="#{schedule.event.numeroTelefono}"/>
+                    <p:inputText id="numero-teléfono" value="#{agenda.eventoUsuario.numeroTelefono}"/>
                 </div>
                 <div class="input-label">
                     <p:outputLabel for="correo" styleClass="block">Correo electrónico</p:outputLabel>
-                    <p:inputText id="correo" value="#{schedule.event.correoElectronico}"/>
+                    <p:inputText id="correo" value="#{agenda.eventoUsuario.correoElectronico}"/>
                 </div>
                 <div class="input-label">
                     <p:outputLabel value="¿Su consulta es para un caso de Asilo o visa de turista?" styleClass="font-bold"/>
-                    <p:selectOneMenu id="opcion1" value="#{schedule.event.casoAsiloTurista}">
+                    <p:selectOneMenu id="opcion1" value="#{agenda.eventoUsuario.casoAsiloTurista}">
                         <f:selectItem itemLabel="Seleccione una" itemValue=""/>
                         <f:selectItem itemLabel="Si" itemValue="Sí"/>
                         <f:selectItem itemLabel="No" itemValue="No"/>
@@ -47,7 +47,7 @@
 
                 <div class="input-label">
                     <p:outputLabel value="¿Usted quiere establecer un negocio en EEUU?" styleClass="font-bold"/>
-                    <p:selectOneMenu id="opcion2" value="#{schedule.event.negocioEEUU}">
+                    <p:selectOneMenu id="opcion2" value="#{agenda.eventoUsuario.negocioEEUU}">
                         <f:selectItem itemLabel="Seleccione una" itemValue=""/>
                         <f:selectItem itemLabel="Si" itemValue="Sí"/>
                         <f:selectItem itemLabel="No" itemValue="No"/>
@@ -55,11 +55,11 @@
                 </div>
                 <div class="input-label">
                     <p:outputLabel for="descripcion" styleClass="block">Diga una breve descripción de su consulta</p:outputLabel>
-                    <p:inputTextarea id="descripcion" rows="6" cols="33" value="#{schedule.event.descripcionUsuario}"/>
+                    <p:inputTextarea id="descripcion" rows="6" cols="33" value="#{agenda.eventoUsuario.descripcionUsuario}"/>
                 </div>
                 <div class="input-label">
                     <p:outputLabel for="from" value="Fecha" styleClass="font-bold"/>
-                    <p:datePicker id="from" value="#{schedule.event.startDate}" pattern="dd/MM/yyyy"
+                    <p:datePicker id="from" value="#{agenda.eventoUsuario.startDate}" pattern="dd/MM/yyyy"
                           showTime="true" appendTo="@(body)"/>
                 </div>
                 <p:outputLabel value="Firme aquí:" styleClass="font-bold"/>
@@ -68,7 +68,7 @@
                         <p:growl>
                             <p:autoUpdate/>
                         </p:growl>
-                        <p:signature id="firma" style="width:400px;height:200px" widgetVar="sig" value="#{schedule.event.firma}"
+                        <p:signature id="firma" style="width:400px;height:200px" widgetVar="sig" value="#{agenda.eventoUsuario.firma}"
                                      required="true" guideline="true"/>
                 
                         <div style="margin:20px 0">
@@ -77,12 +77,12 @@
                     </h:form>
                 </div>
                 <div class="input-terminos">
-                    <p:selectBooleanCheckbox id="check" value="#{schedule.event.checkBox}"/>
+                    <p:selectBooleanCheckbox id="check" value="#{agenda.eventoUsuario.checkBox}"/>
                     <a id="condiciones" class="ui-outputlabel ui-widget block" href="terminos.xhtml" target="_blank">Acepto los términos y condiciones</a>
                 </div>
             </div>
             <div id="enviar">
-                <p:commandButton value="Agendar cita" action="#{schedule.addEvent}" update="nombre, apellido, numero-teléfono, correo, opcion1, opcion2, descripcion, from, j_idt6:j_idt37:firma, check"/>
+                <p:commandButton value="Agendar cita" action="#{agenda.agendarCitaUsuario}" update="nombre, apellido, numero-teléfono, correo, opcion1, opcion2, descripcion, from, j_idt6:j_idt37:firma, check"/>
             </div>
             </h:form>
         </div>

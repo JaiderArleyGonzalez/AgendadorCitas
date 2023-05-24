@@ -13,56 +13,56 @@
         <h:form>
             <p:growl id="messages" showDetail="true"/>
 
-            <p:schedule id="schedule" value="#{schedule.eventModel}" widgetVar="myschedule"
-                        timeZone="#{schedule.serverTimeZone}" clientTimeZone="#{schedule.serverTimeZone}">
-                <p:ajax event="eventSelect" listener="#{schedule.onEventSelect}" oncomplete="PF('eventDialog').show();" update="eventDialog"/>
+            <p:schedule id="schedule" value="#{agenda.calendario.eventModel}" widgetVar="myschedule"
+                        timeZone="#{agenda.calendario.serverTimeZone}" clientTimeZone="#{agenda.calendario.serverTimeZone}">
+                <p:ajax event="eventSelect" listener="#{agenda.onEventSelect}" oncomplete="PF('eventDialog').show();" update="eventDialog"/>
             </p:schedule>
 
             <p:dialog id="eventDialog" widgetVar="eventDialog" header="Detalles Cita" showEffect="fade" hideEffect="fade">
                 <div class="detalles"> 
                     <div class="input-label">
                         <p:outputLabel value="Nombre" styleClass="font-bold"/>
-                        <p:inputText value="#{schedule.event.nombre}" required="true" disabled="true"/>
+                        <p:inputText value="#{agenda.eventoAdministrador.nombre}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Apellido" styleClass="font-bold"/>
-                        <p:inputText value="#{schedule.event.apellido}" required="true" disabled="true"/>
+                        <p:inputText value="#{agenda.eventoAdministrador.apellido}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Número de telefono" styleClass="font-bold"/>
-                        <p:inputText value="#{schedule.event.numeroTelefono}" required="true" disabled="true"/>
+                        <p:inputText value="#{agenda.eventoAdministrador.numeroTelefono}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Correo electronico" styleClass="font-bold"/>
-                        <p:inputText value="#{schedule.event.correoElectronico}" required="true" disabled="true"/>
+                        <p:inputText value="#{agenda.eventoAdministrador.correoElectronico}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="¿Su consulta es para un caso de Asilo o visa de turista?" styleClass="font-bold"/>
-                        <p:inputText value="#{schedule.event.casoAsiloTurista}" required="true" disabled="true"/>
+                        <p:inputText value="#{agenda.eventoAdministrador.casoAsiloTurista}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="¿Requiere negocio en EEUU?" styleClass="font-bold"/>
-                        <p:inputText value="#{schedule.event.negocioEEUU}" required="true" disabled="true"/>
+                        <p:inputText value="#{agenda.eventoAdministrador.negocioEEUU}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Descripción usuario" styleClass="font-bold" />
-                        <p:inputTextarea value="#{schedule.event.descripcionUsuario}" required="true" disabled="true"/>
+                        <p:inputTextarea value="#{agenda.eventoAdministrador.descripcionUsuario}" required="true" disabled="true"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Descripción cita" styleClass="font-bold"/>
-                        <p:inputTextarea value="#{schedule.event.description}" required="false"/>
+                        <p:inputTextarea value="#{agenda.eventoAdministrador.description}" required="false"/>
                     </div>
 
                     <div class="input-label">
                         <p:outputLabel value="Estado cita" styleClass="font-bold" />
-                        <p:selectOneMenu value="#{schedule.event.estadoCita}" required="true">
+                        <p:selectOneMenu value="#{agenda.eventoAdministrador.estadoCita}" required="true">
                             <f:selectItem itemLabel="Programada" itemValue="Programada"/>
                             <f:selectItem itemLabel="En proceso" itemValue="En proceso"/>
                             <f:selectItem itemLabel="Atendida" itemValue="Atendida"/>
@@ -71,22 +71,22 @@
 
                     <div class="input-label">
                         <p:outputLabel value="Fecha" styleClass="font-bold"/>
-                        <p:datePicker value="#{schedule.event.startDate}" pattern="dd/MM/yyyy"
+                        <p:datePicker value="#{agenda.eventoAdministrador.startDate}" pattern="dd/MM/yyyy"
                             showTime="true" appendTo="@(body)"/>
                     </div>
                     <div>
                         <p:outputPanel id="output">
-                            <h:outputText rendered="#{not empty schedule.event.firma}" style="font-size:1.5rem" styleClass="block mb-2"
+                            <h:outputText rendered="#{not empty agenda.eventoAdministrador.firma}" style="font-size:1.5rem" styleClass="block mb-2"
                                         value="Firma del usuario" />
-                            <p:signature style="width:400px;height:200px;" value="#{schedule.event.firma}" readonly="true"
-                                        rendered="#{not empty schedule.event.firma}" backgroundColor="#eaeaea" color="#03a9f4"/>
+                            <p:signature style="width:400px;height:200px;" value="#{agenda.eventoAdministrador.firma}" readonly="true"
+                                        rendered="#{not empty agenda.eventoAdministrador.firma}" backgroundColor="#eaeaea" color="#03a9f4"/>
                         </p:outputPanel>
                     </div>
 
                 </div>
                 <div class="botones">
-                    <p:commandButton id="addButton" value="Guardar" action="#{schedule.addEvent}"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();" update="schedule"/>
-                    <p:commandButton  id="cancelar" value="Cancelar" action="#{schedule.newEvent}" styleClass="ui-button-raised ui-button-danger" oncomplete="PF('eventDialog').hide();"/>
+                    <p:commandButton id="addButton" value="Guardar" action="#{agenda.agendarCitaAdministrador}"  oncomplete="PF('myschedule').update();PF('eventDialog').hide();" update="schedule"/>
+                    <p:commandButton  id="cancelar" value="Cancelar" action="#{agenda.calendario.newEvent}" styleClass="ui-button-raised ui-button-danger" oncomplete="PF('eventDialog').hide();"/>
                 </div>
             </p:dialog>
         </h:form>
