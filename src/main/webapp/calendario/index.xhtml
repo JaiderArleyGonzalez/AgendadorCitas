@@ -6,7 +6,7 @@
     <h:head>
         <meta charset="UTF-8"/>
         <title>Calendario</title>
-        <link rel="stylesheet" href="style.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
         <h:outputStylesheet library="open-sans" name="open-sans.css" />
     </h:head>
 <body>
@@ -26,7 +26,7 @@
                         <p:ajax event="eventSelect" listener="#{agenda.onEventSelect}" oncomplete="PF('eventDialog').show();" update="eventDialog"/>
                     </p:schedule>
 
-                    <p:dialog id="eventDialog" widgetVar="eventDialog" header="Detalles Cita" showEffect="fade" hideEffect="fade">
+                    <p:dialog id="eventDialog" widgetVar="eventDialog" header="Detalles Cita" showEffect="fade" hideEffect="fade" style="max-height: 95%; overflow-y: auto;">
                         <div class="detalles"> 
                             <div class="input-label">
                                 <p:outputLabel value="Nombre" styleClass="font-bold"/>

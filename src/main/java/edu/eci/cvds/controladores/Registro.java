@@ -1,5 +1,6 @@
 package edu.eci.cvds.controladores;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
@@ -41,14 +43,20 @@ public class Registro implements Serializable {
             FacesContext.getCurrentInstance().addMessage("@all", new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario o la contaseña no son correctos.", null));
             return null;
         } else {
-            return "basic.xhtml";
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            try {
+                externalContext.redirect("../calendario/index.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace(); // Manejo de errores en caso de que ocurra un problema durante la redirección
+            }
+            return null; // La redirección se realizará, por lo que no es necesario retornar una cadena de navegación
         }
     }
 
     @Bean
     public CommandLineRunner currentUser() throws Exception{
         return args -> {
-            usuarioServicio.saveUser(new Usuario((long) 1,"Lilliana","1234","Lilliana","Jones","asd"));
+            usuarioServicio.saveUser(new Usuario((long) 1,"Liliana","1234","Liliana","Jones","asd"));
             usuarioServicio.findAll().forEach(System.out::println);
         };
     }

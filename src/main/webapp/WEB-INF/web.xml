@@ -13,6 +13,6 @@
     <url-pattern>/faces/*</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
-    <welcome-file>faces/index.jsp</welcome-file>
+    <welcome-file>prj-final-5.1.0/index.html</welcome-file>
   </welcome-file-list>
 </web-app>
