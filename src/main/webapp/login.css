@@ -1,0 +1,37 @@
+.forma {
+    font-family: "Roboto", sans-serif;
+    background: #FFFFFF;
+    opacity: 99%;
+    padding: 2em;
+    text-align: center;
+    border-radius: 10px;
+    width: 350px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+.longitud {
+    height: 50px;
+}
+
+h\:messages {
+    color: blue;
+    background-color: #f0faff;
+    border: 1px solid #b0d4ff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  h\:messages ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h\:messages li {
+    margin-bottom: 5px;
+  }
