@@ -82,6 +82,9 @@
                     <p:selectBooleanCheckbox id="check" value="#{agenda.eventoUsuario.checkBox}" required="true" requiredMessage="Debes aceptar los términos y condiciones"/>
                     <a id="condiciones" class="ui-outputlabel ui-widget block" href="terminos.xhtml" target="_blank">Acepto los términos y condiciones</a>
                 </div>
+                <div class="input-label">
+                    <p:outputLabel for="descripcion" styleClass="block">El valor de la cita es de $50</p:outputLabel>
+                </div>
             </div>
             <div id="enviar">
                 <p:commandButton value="Agendar cita" action="#{agenda.agendarCitaUsuario}" update="nombre, apellido, numero-teléfono, correo, opcion1, opcion2, descripcion, from, j_idt6:j_idt37:firma, check"/>
