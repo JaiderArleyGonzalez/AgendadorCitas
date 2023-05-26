@@ -161,5 +161,5 @@ Descripción del proceso:
 
 > **Reporte de pruebas y de cubrimiento de las mismas**
 
-
+![Diagrama](./MultimediaCVDS/Reporte.png)
 
