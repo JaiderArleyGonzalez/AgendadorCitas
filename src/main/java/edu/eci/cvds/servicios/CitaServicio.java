@@ -1,12 +1,12 @@
 package edu.eci.cvds.servicios;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import edu.eci.cvds.modelo.Cita;
 import edu.eci.cvds.repositorios.CitaRepositorio;
-
-import java.time.LocalDateTime;
-import java.util.List;
 @Service
 public class CitaServicio {
     private final CitaRepositorio citaRepositorio;
@@ -19,6 +19,7 @@ public class CitaServicio {
     public Cita getCita (LocalDateTime citaId){
         return citaRepositorio.findById(citaId);
     }
+
     public List<Cita> getAllCita(){
         return citaRepositorio.findAll();
     }
