@@ -3,6 +3,9 @@ package edu.eci.cvds.controladores;
 import java.io.Serializable;
 import java.time.*;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import org.primefaces.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -109,34 +112,11 @@ public class Schedule implements Serializable {
     }
     
     public void addEvent() {
-
-        if (!citaRepositorio.existsById( event.getStartDate() )) {
-            event.setTitle(event.getNombre()+" "+event.getApellido());
-            eventModel.addEvent(event);
-            citaServicio.addCita(new Cita(  event.getStartDate(), 
-                                            "descripcion",
-                                            event.getCasoAsiloTurista(),
-                                            event.getNegocioEEUU(),
-                                            event.getNombre(),
-                                            event.getApellido(),
-                                            event.getNumeroTelefono(),
-                                            event.getCorreoElectronico(),
-                                            event.getDescripcionUsuario(),
-                                            "AGENDADA",
-                                            oneHourLater(event.getStartDate()),
-                                            event.getFirma(),
-                                            event.getCheckBox()                            
-                                        ));
-            event.setEstadoCita("Programada");
-            event.setColor();
-            
-            sendEmailToHals(false);
-            sendEmailToUser(false, event.getCorreoElectronico());
-            
-        }
-        else {
-            eventModel.updateEvent(event);
-            citaServicio.updateCita(new Cita(  event.getStartDate(), 
+        if(event.getStartDate().isBefore(LocalDateTime.now())==false){
+            if (!citaRepositorio.existsById( event.getStartDate() )) {
+                event.setTitle(event.getNombre()+" "+event.getApellido());
+                eventModel.addEvent(event);
+                citaServicio.addCita(new Cita(  event.getStartDate(), 
                                                 "descripcion",
                                                 event.getCasoAsiloTurista(),
                                                 event.getNegocioEEUU(),
@@ -145,17 +125,44 @@ public class Schedule implements Serializable {
                                                 event.getNumeroTelefono(),
                                                 event.getCorreoElectronico(),
                                                 event.getDescripcionUsuario(),
-                                                event.getEstadoCita(),
+                                                "AGENDADA",
                                                 oneHourLater(event.getStartDate()),
                                                 event.getFirma(),
-                                                event.getCheckBox()                                 
-                                        ));
-            event.setEstadoCita(event.getEstadoCita());    
-            event.setColor();
-            sendEmailToHals(true);
-            sendEmailToUser(true, event.getCorreoElectronico());
+                                                event.getCheckBox()                            
+                                            ));
+                event.setEstadoCita("Programada");
+                event.setColor();
+                
+                sendEmailToHals(false);
+                sendEmailToUser(false, event.getCorreoElectronico());
+                
+            }
+            else {
+                eventModel.updateEvent(event);
+                citaServicio.updateCita(new Cita(  event.getStartDate(), 
+                                                    "descripcion",
+                                                    event.getCasoAsiloTurista(),
+                                                    event.getNegocioEEUU(),
+                                                    event.getNombre(),
+                                                    event.getApellido(),
+                                                    event.getNumeroTelefono(),
+                                                    event.getCorreoElectronico(),
+                                                    event.getDescripcionUsuario(),
+                                                    event.getEstadoCita(),
+                                                    oneHourLater(event.getStartDate()),
+                                                    event.getFirma(),
+                                                    event.getCheckBox()                                 
+                                            ));
+                event.setEstadoCita(event.getEstadoCita());    
+                event.setColor();
+                sendEmailToHals(true);
+                sendEmailToUser(true, event.getCorreoElectronico());
+            }
+        }else{
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fecha errónea",
+                "No puede ingresar una fecha anterior a la actual");
+            addMessage(message);
         }
-
         this.newEvent();
         
     }
@@ -198,5 +205,7 @@ public class Schedule implements Serializable {
     private LocalDateTime oneHourLater(LocalDateTime referenceDate) {
         return referenceDate.plusDays(0).plusHours(1).withMinute(0).withSecond(0).withNano(0);
     }
-    
+    private void addMessage(FacesMessage message) {
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 }
