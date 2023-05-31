@@ -18,15 +18,18 @@
             Login
         </div>
         <h:form>
-            <div class="input-label">
-                <p:inputText class="longitud" value="#{registro.user}" placeholder="Nombre" id="login-name"/>
-            </div>
-            <div class="input-label">
-                <p:password class="longitud" value="#{registro.password}" placeholder="Contraseña" id="login-pass"/>
-            </div>
-            <p:commandButton class="btn btn-primary btn-large btn-block longitud separar" action="#{registro.login}" value="Ingresar" id="confirm" update="@all" style="width: 270px" oncomplete="PF('messagesDialog').show()"/>
-            <h:messages style="color: blue" />
+        <div class="input-label">
+            <p:inputText class="longitud" value="#{registro.user}" placeholder="Nombre" id="login-name"/>
+        </div>
+        <div class="input-label">
+            <p:password class="longitud" value="#{registro.password}" placeholder="Contraseña" id="login-pass"/>
+        </div>
+        <p:commandButton class="btn btn-primary btn-large btn-block longitud separar" action="#{registro.login}" value="Ingresar" id="confirm" update="@all" style="width: 270px" oncomplete="PF('messagesDialog').show()"/>
         </h:form>
     </div>
+    <p:dialog id="messagesDialog" header="Mensaje" widgetVar="messagesDialog" resizable="false">
+            <h:messages style="color: black" />
+            <p:commandButton value="Ok" onclick="PF('messagesDialog').hide();" />
+    </p:dialog>
 </h:body>
 </html>

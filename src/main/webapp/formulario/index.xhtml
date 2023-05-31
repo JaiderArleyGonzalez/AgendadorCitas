@@ -10,7 +10,6 @@
     </h:head>
     
     <h:body>
-        
         <div id="logo">
             <img src="../img/Fondo-transparenteHALS.png" alt="logo HALS"/>
         </div>
@@ -80,17 +79,31 @@
                 </div>
                 <div class="input-terminos">
                     <p:selectBooleanCheckbox id="check" value="#{agenda.eventoUsuario.checkBox}" required="true" requiredMessage="Debes aceptar los términos y condiciones"/>
-                    <a id="condiciones" class="ui-outputlabel ui-widget block" href="terminos.xhtml" target="_blank">Acepto los términos y condiciones</a>
-                </div>
-                <div class="input-label">
-                    <p:outputLabel for="descripcion" styleClass="block">El valor de la cita es de $50</p:outputLabel>
+                    <p:commandButton value="Acepto los términos y condiciones" style="background: none; border: none; width: 10cm; color: blue; text-align: left; text-decoration: underline;" oncomplete="PF('terminos').show();"/>
                 </div>
             </div>
             <div id="enviar">
-                <p:commandButton value="Agendar cita" action="#{agenda.agendarCitaUsuario}" update="nombre, apellido, numero-teléfono, correo, opcion1, opcion2, descripcion, from, j_idt6:j_idt37:firma, check"/>
+                <p:commandButton value="Agendar cita" action="#{agenda.realizarPago()}" />
                 <h:messages style="color: blue" />
             </div>
             </h:form>
         </div>
+        <p:dialog widgetVar="terminos" header="Terminos y Condiciones">
+                <p:panel style="text-align: center;" header="Debe aceptar lo siguiente para programar una cita">
+                  <p style="text-align: justify;">El precio de la cita se muestra claramente en pantalla y <br /> no incluye impuestos.</p>
+                  <p style="text-align: justify;">No se ofrecen reembolsos por las citas agendadas, independientemente <br />
+                    de si los resultados de la cita fueron o no los esperados por el <br /> 
+                    cliente o si el tiempo de la cita fue menor al estimado.</p>
+                  <p style="text-align: justify;">Si no se asiste a la cita y esta no es cancelada con al menos <br />
+                    2 horas de anterioridad, se recibirá una multa del 5% del valor <br />
+                    de la cita.</p>
+                  <p style="text-align: justify;">Nos reservamos el derecho de modificar estos términos y condiciones <br />
+                    en cualquier momento sin previo aviso. Los cambios serán efectivos <br />
+                    tan pronto como se publiquen en nuestro sitio web.</p>
+              </p:panel>
+              <div style="margin-top: 30px;">
+                <!-- Contenido que está por encima del panel -->
+              </div>
+        </p:dialog>
     </h:body>
 </html>
