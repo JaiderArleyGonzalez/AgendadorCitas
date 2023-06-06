@@ -133,8 +133,8 @@ public class Schedule implements Serializable {
                 event.setEstadoCita("Programada");
                 event.setColor();
                 
-                sendEmailToHals(false);
-                sendEmailToUser(false, event.getCorreoElectronico());
+                //sendEmailToHals(false);
+                //sendEmailToUser(false, event.getCorreoElectronico());
                 
             }
             else {
@@ -155,8 +155,8 @@ public class Schedule implements Serializable {
                                             ));
                 event.setEstadoCita(event.getEstadoCita());    
                 event.setColor();
-                sendEmailToHals(true);
-                sendEmailToUser(true, event.getCorreoElectronico());
+                //sendEmailToHals(true);
+                //sendEmailToUser(true, event.getCorreoElectronico());
             }
         }else{
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fecha errónea",

@@ -4,7 +4,7 @@ body
     justify-content: center;
     align-items: center;
 
-    background-image: url("../../img/escultura.png");
+    background-image: url("../../img/libros.png");
     background-size: cover;
     backdrop-filter: blur(10px);
     width: 100%;
@@ -26,6 +26,9 @@ body
     padding: 1.5em;
     border-radius: 15px;
     margin: 2em;
+    min-width: 400px;
+    height: fit-content;
+
 }
 #titulo
 {

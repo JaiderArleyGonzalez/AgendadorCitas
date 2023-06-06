@@ -9,10 +9,15 @@
         <link rel="stylesheet" href="css/style.css"/>
     </h:head>
     <h:body>
-        <h:form id="myForm" prependId="false">
-            <div id="paypal-button-container"></div>
-            <f:event type="preRenderView" listener="#{agenda.agendarCitaUsuario}" />
-        </h:form>
+        <div id="logo">
+            <img src="../img/Fondo-transparenteHALS.png" alt="logo HALS"/>
+        </div>
+        <div id="contenedor">
+            <h:form id="myForm" prependId="false">
+                <div id="paypal-button-container"></div>
+                <f:event type="preRenderView" listener="#{agenda.agendarCitaUsuario}" />
+            </h:form>
+        </div>
     </h:body>
     <script src="https://www.paypal.com/sdk/js?client-id=AabPv3LMCgPgShK7rgQJ3APdXgulRpqcdM4Nz2yWyYiLkN7drSZhS9PvgYhZ_JmpdOV7jRjyG3HQnH_K"></script>
     <script>
